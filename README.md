@@ -31,6 +31,9 @@ Recursos del Proyecto
 
   * [Trello.com](https://trello.com/b/FCTei02J/scrum-board) — Gestión del proyecto usando Kanban
   * [GitHub.com](https://github.com/rcuello/DataMinderUdeA) — Repositorio del codigo fuente
+  * [Hoja de la ruta](https://docs.google.com/spreadsheets/d/1A6Vf62iAGAKRTLccNzv32tF7AxF30K_-Pl2nVtdSb5c/edit#gid=1764691443) — Nivélate en la ruta
+
+
   
 Recursos para el Desarrollo
 =================
@@ -42,6 +45,7 @@ Recursos para el Desarrollo
   * [Sprint 1 y 2 Tutor Alejandro Mesa](https://udea.zoom.us/rec/play/lcjLw09rRTHmbRro19KA2aZMbsE9kVEefOtAC3oDbuVCdRF3wefVkkxing5TdHEmVCLXaUeyKGYM1JYe.F-o2txRJHLQlzeCB?startTime=1632070269000&_x_zm_rtaid=86XmYX8ERYOJnEVDFtA95g.1633449325176.b59b7b4097c51ffc32374c93b8c31f9a&_x_zm_rhtaid=698) — Tutor Alejandro Mesa
   * [Repo Tutor Alejandro Mesa](https://github.com/pharaohghost7/Sprint1) — Tutor Alejandro Mesa
   * [Repo Tutor David Torres](https://github.com/deivid-01) — Tutor Nivelatorio Deivid Torres
+  * [Tutorial React](https://docs.google.com/document/d/1_5Ns0sTapqH7MpyQkgjSSPcpQvh6RFx2pzr_HOQATq4/edit) - Tutorial React
   
   
 Pasos para crear la base de datos en Mongodb.com
@@ -61,13 +65,25 @@ Informacion sobre el sprint
 https://udea.zoom.us/rec/play/lcjLw09rRTHmbRro19KA2aZMbsE9kVEefOtAC3oDbuVCdRF3wefVkkxing5TdHEmVCLXaUeyKGYM1JYe.F-o2txRJHLQlzeCB?startTime=1632070269000&_x_zm_rtaid=86XmYX8ERYOJnEVDFtA95g.1633449325176.b59b7b4097c51ffc32374c93b8c31f9a&_x_zm_rhtaid=698
 
 
-Instalaciones Necesarias
+Instalaciones Necesarias (backend)
 =================
 1. (mkdir) Crear Carpeta "backed"
 2. (cmd) => cd backend
 3. (cmd) => npm init
 4. (cmd) => npm install express morgan mongoose
 5. (cmd) => npm install nodemon -D
+
+Instalaciones Necesarias (frontend)
+=================
+0. [Tutorial](https://docs.google.com/document/d/1_5Ns0sTapqH7MpyQkgjSSPcpQvh6RFx2pzr_HOQATq4/edit)
+0. [Video](https://udea.zoom.us/rec/play/z578IqmwdYyOxwLPnOWOB8AQZbUSdXdvCtfsd20yjxioIjXqpzRhwQ8uV899wngXUn9xybLY2NS0_kBr.fKXGtxxH1NNVyI63?startTime=1632956392000&_x_zm_rtaid=SCQqG3S_SoqZ4RN3tx1fOA.1633456874821.8ea20fc1a9237b5a5f17b7cb461e4b20&_x_zm_rhtaid=517)
+1. (mkdir) Crear Carpeta "frontend"
+1. (cmd) => cd frontend
+1. instalar npx => npm install -g npx
+1. En visual studio code , instalar "ECMAScript 7" o "ES7" estándar javascript
+1. (cmd) => npx create-react-app ventas-react-app
+1. (cmd) => cd ventas-react-app
+1. (cmd) => npm start
 
 
 Node => npm install -g create-react-app
