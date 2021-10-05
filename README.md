@@ -37,5 +37,37 @@ Recursos para el Desarrollo
 
   * [code.visualstudio.com](https://code.visualstudio.com/) — IDE del proyecto
   * [Git-scm.com](https://git-scm.com/downloads) — GIT
+  * [nodejs.org](https://nodejs.org/es/download/) — NodeJs
+  * [mongodb.com]( https://www.mongodb.com/es/cloud/atlas) — mongodb
+  * [Sprint 1 y 2 Tutor Alejandro Mesa](https://udea.zoom.us/rec/play/lcjLw09rRTHmbRro19KA2aZMbsE9kVEefOtAC3oDbuVCdRF3wefVkkxing5TdHEmVCLXaUeyKGYM1JYe.F-o2txRJHLQlzeCB?startTime=1632070269000&_x_zm_rtaid=86XmYX8ERYOJnEVDFtA95g.1633449325176.b59b7b4097c51ffc32374c93b8c31f9a&_x_zm_rhtaid=698) — Tutor Alejandro Mesa
+  * [Repo Tutor Alejandro Mesa](https://github.com/pharaohghost7/Sprint1) — Tutor Alejandro Mesa
+  * [Repo Tutor David Torres](https://github.com/deivid-01) — Tutor Nivelatorio Deivid Torres
   
+  
+Pasos para crear la base de datos en Mongodb.com
+=================
+ * Ingresar a [mongodb.com]( https://www.mongodb.com/es/cloud/atlas) — mongodb
+ * Opcion "Build database"
+ * Opcion => Deploy a cloud database => Shared (Free)
+ * Opcion => Create
+ * Opcion => Cloud Provider & Region => Azure , Azure, Virginia-East2 (eastus2)
+ * Opcion => Cluster Name => Group-mintic
+ * Opcion => Create Cluster
 
+
+
+Informacion sobre el sprint
+=================
+https://udea.zoom.us/rec/play/lcjLw09rRTHmbRro19KA2aZMbsE9kVEefOtAC3oDbuVCdRF3wefVkkxing5TdHEmVCLXaUeyKGYM1JYe.F-o2txRJHLQlzeCB?startTime=1632070269000&_x_zm_rtaid=86XmYX8ERYOJnEVDFtA95g.1633449325176.b59b7b4097c51ffc32374c93b8c31f9a&_x_zm_rhtaid=698
+
+
+Instalaciones Necesarias
+=================
+1. (mkdir) Crear Carpeta "backed"
+2. (cmd) => cd backend
+3. (cmd) => npm init
+4. (cmd) => npm install express morgan mongoose
+5. (cmd) => npm install nodemon -D
+
+
+Node => npm install -g create-react-app
