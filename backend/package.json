@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend de mi login",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcuello/DataMinderUdeA.git"
+  },
+  "keywords": [
+    "node",
+    "react",
+    "express"
+  ],
+  "author": "dataMinder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcuello/DataMinderUdeA/issues"
+  },
+  "homepage": "https://github.com/rcuello/DataMinderUdeA#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.9",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
