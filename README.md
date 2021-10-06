@@ -32,6 +32,9 @@ Recursos del Proyecto
   * [Trello.com](https://trello.com/b/FCTei02J/scrum-board) — Gestión del proyecto usando Kanban
   * [GitHub.com](https://github.com/rcuello/DataMinderUdeA) — Repositorio del codigo fuente
   * [Hoja de la ruta](https://docs.google.com/spreadsheets/d/1A6Vf62iAGAKRTLccNzv32tF7AxF30K_-Pl2nVtdSb5c/edit#gid=1764691443) — Nivélate en la ruta
+  * [Clases Grupo 10](http://ingeniaudea.edu.co/zoom-recordings/recordings/docenciaingenia111@udea.edu.co/99562013521/2021-02-28) Grupo 10-11-12
+  * [Clases Grupo 16](http://ingeniaudea.edu.co/zoom-recordings/recordings/docenciaingenia115@udea.edu.co/95053904747/2021-02-28) Grupo 16
+  * [Curso gratis react](https://codigofacilito.com/cursos/curso-gratis-de-react) Curso react
 
 
   
