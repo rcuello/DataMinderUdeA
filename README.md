@@ -1,3 +1,14 @@
+**Qué es Misión TIC?**
+=================================
+La Misión TIC 2022 es un programa liderado por el Gobierno del Presidente Iván Duque con un gran objetivo:  formar 100.000 jóvenes y adultos colombianos en programación, para enfrentar los desafíos de la Cuarta Revolución Industrial. En esta misión, mujeres y hombres serán elegidos y formados para ser parte de la aventura que propulsará el mundo hacia adelante, ver [enlace](https://www.misiontic2022.gov.co/portal/).
+
+
+**Proyecto de formación Mision TIC - Ciclo 3**
+=================================
+Se propone analizar, diseñar y construir una aplicación software que permita controlar las ventas físicas y virtuales de una empresa de manufactura y hacerles el correspondiente seguimiento. 
+
+Para llevar a cabo este proyecto deberás tener en cuenta una serie de indicaciones.
+
 ¿Qué debo alcanzar para desarrollar la aplicación web?
 =================================
 Para que puedas desarrollar el proyecto que se te planteó, la aplicación web debe
