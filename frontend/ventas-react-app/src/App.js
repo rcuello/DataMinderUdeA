@@ -21,18 +21,23 @@ import Login from './pages/Login';
 import RegisterUser from './pages/RegisterUser';
 
 
+
+
 function App(){
   return (
     <div className="App">
         <Router>
+          
           <Switch>
-            <Route path="/login">
+            
+            <Route path="/login" exact>
               <Login/>
             </Route>
-            <Route path="/registerUser">
+            <Route path="/registerUser" exact>
               <RegisterUser/>
             </Route>
-            <Route path="/">
+
+            <Route path="/" exact>
               <Index/>
             </Route>
             
