@@ -14,15 +14,15 @@ function Login() {
                                         <form>
                                             <div className="form-floating mb-3">
                                                 <input className="form-control" id="inputEmail" type="email" placeholder="usuario" />
-                                                <label for="inputEmail">Usuario</label>
+                                                <label htmlFor="inputEmail">Usuario</label>
                                             </div>
                                             <div className="form-floating mb-3">
                                                 <input className="form-control" id="inputPassword" type="password" placeholder="Contraseña" />
-                                                <label for="inputPassword">Contraseña</label>
+                                                <label htmlFor="inputPassword">Contraseña</label>
                                             </div>
                                             <div className="form-check mb-3">
                                                 <input className="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label className="form-check-label" for="inputRememberPassword">Recordar contraseña</label>
+                                                <label className="form-check-label" htmlFor="inputRememberPassword">Recordar contraseña</label>
                                             </div>
                                             <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a className="small" href="password.html">Olvidaste contraseña?</a>
@@ -36,7 +36,7 @@ function Login() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+            </div>
         </AuthLayout>
     )
 }

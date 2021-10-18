@@ -5,7 +5,7 @@ import Menu from "../menu/Menu";
 
 const AppLayout = ({children}) => {
     return (
-        <div  className="sb-nav-fixed">
+        <div className="sb-nav-fixed">
             
             <Header />
 

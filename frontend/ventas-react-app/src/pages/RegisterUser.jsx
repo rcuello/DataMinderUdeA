@@ -15,31 +15,31 @@ const RegisterUser =()=>{
                                                 <div className="col-md-6">
                                                     <div className="form-floating mb-3 mb-md-0">
                                                         <input className="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" />
-                                                        <label for="inputFirstName">First name</label>
+                                                        <label htmlFor="inputFirstName">First name</label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-floating">
                                                         <input className="form-control" id="inputLastName" type="text" placeholder="Enter your last name" />
-                                                        <label for="inputLastName">Last name</label>
+                                                        <label htmlFor="inputLastName">Last name</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="form-floating mb-3">
                                                 <input className="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
+                                                <label htmlFor="inputEmail">Email address</label>
                                             </div>
                                             <div className="row mb-3">
                                                 <div className="col-md-6">
                                                     <div className="form-floating mb-3 mb-md-0">
                                                         <input className="form-control" id="inputPassword" type="password" placeholder="Create a password" />
-                                                        <label for="inputPassword">Password</label>
+                                                        <label htmlFor="inputPassword">Password</label>
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-floating mb-3 mb-md-0">
                                                         <input className="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-                                                        <label for="inputPasswordConfirm">Confirm Password</label>
+                                                        <label htmlFor="inputPasswordConfirm">Confirm Password</label>
                                                     </div>
                                                 </div>
                                             </div>
