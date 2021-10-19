@@ -4,6 +4,8 @@ import SideBar from "../sideBar/SideBar";
 
 
 const PrivateLayout = ({children}) => {
+
+
     return (
         <div className="sb-nav-fixed">
             

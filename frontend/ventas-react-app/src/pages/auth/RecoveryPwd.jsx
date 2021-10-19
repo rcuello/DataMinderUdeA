@@ -13,11 +13,11 @@ const RecoveryPwd = () => {
                                         <form>
                                             <div className="form-floating mb-3">
                                                 <input className="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Dirección de correo electrónico</label>
+                                                <label htmlFor="inputEmail">Dirección de correo electrónico</label>
                                             </div>
                                             <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <NavLink to="/login" activeClassName="small">Volver a iniciar sesión</NavLink>
-                                                <NavLink to="/login" activeClassName="btn btn-primary">Restablecer la contraseña</NavLink>
+                                                <NavLink to="/login" className="small">Volver a iniciar sesión</NavLink>
+                                                <NavLink to="/login" className="btn btn-primary">Restablecer la contraseña</NavLink>
                                             </div>
                                         </form>
                                     </div>

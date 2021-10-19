@@ -10,14 +10,15 @@ import PrivateLayout from "./components/layouts/PrivateLayout";
 //************************************************************ */
 
 import Index from './pages/Index';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
+import Login        from './pages/auth/Login';
+import Register     from './pages/auth/Register';
+import RecoveryPwd  from './pages/auth/RecoveryPwd';
 
 import Dashboard from './pages/admin/Dashboard';
 import Users from './pages/admin/Users';
 import Products from './pages/admin/Products';
 import Sales from './pages/admin/Sales';
-import RecoveryPwd from './pages/auth/RecoveryPwd';
+
 
 
 

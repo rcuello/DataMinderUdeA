@@ -46,7 +46,7 @@ const Register =()=>{
                                             </div>
                                             <div className="mt-4 mb-0">
                                                 <div className="d-grid">
-                                                    <NavLink to="/register" activeClassName="btn btn-primary btn-block">Crear una cuenta</NavLink>
+                                                    <NavLink to="/register" className="btn btn-primary btn-block">Crear una cuenta</NavLink>
                                                 </div>
                                             </div>
                                         </form>

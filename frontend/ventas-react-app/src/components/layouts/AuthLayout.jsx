@@ -9,6 +9,24 @@ const AuthLayout = ({children})=>{
                     {children}
                     </main>
                 </div>
+                
+            </div>
+
+        </div>
+    )
+}
+
+export default AuthLayout;
+
+/*const AuthLayout = ({children})=>{
+    return (
+        <div className="bg-secondary">
+            <div id="layoutAuthentication">
+                <div id="layoutAuthentication_content">
+                    <main>
+                    {children}
+                    </main>
+                </div>
                 <div id="layoutAuthentication_footer">
                 <footer className="py-4 bg-light mt-auto">
                     <div className="container-fluid px-4">
@@ -23,6 +41,4 @@ const AuthLayout = ({children})=>{
 
         </div>
     )
-}
-
-export default AuthLayout;
+}*/
