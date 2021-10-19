@@ -17,6 +17,7 @@ import Dashboard from './pages/admin/Dashboard';
 import Users from './pages/admin/Users';
 import Products from './pages/admin/Products';
 import Sales from './pages/admin/Sales';
+import RecoveryPwd from './pages/auth/RecoveryPwd';
 
 
 
@@ -45,7 +46,7 @@ function App(){
               </PrivateLayout>
             </Route>
 
-            <Route path={["/login","/register"]} exact>
+            <Route path={["/login","/register","/recovery"]} exact>
              <AuthLayout>
                 <Switch>
                   <Route path='/login'>
@@ -53,6 +54,9 @@ function App(){
                   </Route>
                   <Route path="/register">
                     <Register></Register>
+                  </Route>
+                  <Route path="/recovery">
+                    <RecoveryPwd></RecoveryPwd>
                   </Route>
                 </Switch>
              </AuthLayout>

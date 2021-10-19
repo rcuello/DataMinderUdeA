@@ -1,4 +1,5 @@
 import React from "react";
+import {Link,NavLink} from "react-router-dom";
 
 function Login() {
     return (
@@ -23,13 +24,17 @@ function Login() {
                                         <label className="form-check-label" html="inputRememberPassword">Recordar contraseña</label>
                                     </div>
                                     <div className="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <a className="small" href="password.html">Olvidaste contraseña?</a>
+                                        <NavLink to="/recovery" activeClassName="small">Olvidaste contraseña?</NavLink>
                                         <a className="btn btn-primary" href="index.html">Iniciar sesion</a>
                                     </div>
                                 </form>
                             </div>
                             <div className="card-footer text-center py-3">
-                                <div className="small"><a href="register.html">Necesitas crear una cuenta?</a></div>
+                                <div className="small">
+                                    <Link to="/register">
+                                        Necesitas crear una cuenta?
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
