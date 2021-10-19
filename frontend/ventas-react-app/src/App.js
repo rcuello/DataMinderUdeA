@@ -1,25 +1,18 @@
 import logo from './logo.svg';
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
-/*import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";*/
-
 import { BrowserRouter as Router,Switch,  Route } from 'react-router-dom';
-//import Login from './components/login/login';
-//import Footer from "./components/footer/Footer";
-//import Header from "./components/header/Header";
-//import Menu from "./components/menu/Menu";
 
-//import RegisterUser from "./components/user/register/register";
+//******** Layouts ********
+import AuthLayout from './components/layouts/AuthLayout';
+import PublicLayout from "./components/layouts/PublicLayout";
+import PrivateLayout from "./components/layouts/PrivateLayout";
+//************************************************************ */
 
-//import { Container } from 'reactstrap';
 import Index from './pages/Index';
-import Login from './pages/Login';
-import RegisterUser from './pages/RegisterUser';
-
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import AdminIndex from './pages/admin/AdminIndex';
 
 
 
@@ -27,20 +20,36 @@ function App(){
   return (
     <div className="App">
         <Router>
-          
           <Switch>
-            
-            <Route path="/login" exact>
-              <Login/>
-            </Route>
-            <Route path="/registerUser" exact>
-              <RegisterUser/>
+
+            <Route path={["/admin","/admin/users"]}>
+              <PrivateLayout>
+                <Switch>
+                  <Route path="/admin">
+                    <AdminIndex/>
+                  </Route>
+                </Switch>
+              </PrivateLayout>
             </Route>
 
-            <Route path="/" exact>
-              <Index/>
+            <Route path={["/login","/register"]} exact>
+             <AuthLayout>
+                <Switch>
+                  <Route path='/login'>
+                    <Login></Login>
+                  </Route>
+                  <Route path="/register">
+                    <Register></Register>
+                  </Route>
+                </Switch>
+             </AuthLayout>
             </Route>
-            
+
+            <Route path={["/"]}>
+              <PublicLayout>
+                <Index></Index>
+              </PublicLayout>
+            </Route>
           </Switch>
 
         </Router>
@@ -48,53 +57,46 @@ function App(){
   )
 
 }
-/*function App() {
-  return (
-    <div  className="sb-nav-fixed">
-    <BrowserRouter>
-      <Container>
-        <Header />
-        <div id="layoutSidenav">
-          <div id="layoutSidenav_nav">
-            <Menu></Menu>
-          </div>
-          <div id="layoutSidenav_content">
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route exact path="/register" component={RegisterUser} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/users" component={Login} />
-              <Route component={Login} />
-            </Switch>
-          </div>
-        </div>
-        
-        <Footer />
-      </Container>
-    </BrowserRouter>
-    </div>
-  );
-}*/
 
-/*function App() {
-  return (
-    <div  className="sb-nav-fixed">
-    <BrowserRouter>
-      <Container>
-        <Header />
-        <hr />
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/register" component={RegisterUser} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/users" component={Login} />
-          <Route component={Login} />
-        </Switch>
-        <Footer />
-      </Container>
-    </BrowserRouter>
-    </div>
-  );
-}*/
 
 export default App;
+
+
+
+/*
+
+  return (
+    <div className='App'>
+      <Auth0Provider
+        domain='test-misiontic.us.auth0.com'
+        clientId='TNZt6AQEKyfQH5XOyAXnd5rAaDgwJJiu'
+        redirectUri='http://localhost:3000/admin/'
+        audience='autenticacion-test-misiontic'
+      >
+        <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
+          <Router>
+            <Switch>
+              
+              <Route path={['/login', '/registro']}>
+                <AuthLayout>
+                  <Switch>
+                    <Route path='/login'>
+                      <Login />
+                    </Route>
+                    <Route path='/registro'>
+                      <Registro />
+                    </Route>
+                  </Switch>
+                </AuthLayout>
+              </Route>
+              
+            </Switch>
+          </Router>
+        </DarkModeContext.Provider>
+      </Auth0Provider>
+    </div>
+  );
+}
+
+export default App;
+*/

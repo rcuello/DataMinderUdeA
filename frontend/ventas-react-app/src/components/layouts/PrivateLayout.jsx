@@ -3,7 +3,7 @@ import Header from "../header/Header";
 import Menu from "../menu/Menu";
 
 
-const AppLayout = ({children}) => {
+const PrivateLayout = ({children}) => {
     return (
         <div className="sb-nav-fixed">
             
@@ -23,4 +23,4 @@ const AppLayout = ({children}) => {
     )
 }
 
-export default AppLayout;
+export default PrivateLayout;

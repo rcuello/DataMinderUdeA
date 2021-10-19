@@ -1,11 +1,10 @@
 import React from 'react'
-import AppLayout from '../components/layouts/AppLayout';
 
 function Index() {
     return (
-        <AppLayout>
+        <div>
             Hola MUNDO
-        </AppLayout>
+        </div>
     )
 }
 

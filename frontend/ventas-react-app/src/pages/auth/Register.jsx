@@ -1,9 +1,8 @@
 import React from "react";
-import AuthLayout from "../components/layouts/AuthLayout";
 
-const RegisterUser =()=>{
+const Register =()=>{
     return (
-        <AuthLayout>
+        
             <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-lg-7">
@@ -54,9 +53,9 @@ const RegisterUser =()=>{
                                 </div>
                             </div>
                         </div>
-                    </div>
-        </AuthLayout>
+            </div>
+        
     )
 }
 
-export default RegisterUser;
+export default Register;
