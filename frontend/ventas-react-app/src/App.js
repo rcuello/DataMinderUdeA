@@ -12,7 +12,11 @@ import PrivateLayout from "./components/layouts/PrivateLayout";
 import Index from './pages/Index';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
-import AdminIndex from './pages/admin/AdminIndex';
+
+import Dashboard from './pages/admin/Dashboard';
+import Users from './pages/admin/Users';
+import Products from './pages/admin/Products';
+import Sales from './pages/admin/Sales';
 
 
 
@@ -22,11 +26,20 @@ function App(){
         <Router>
           <Switch>
 
-            <Route path={["/admin","/admin/users"]}>
+            <Route path={["/admin","/admin/users","/admin/products","/admin/sales"]}>
               <PrivateLayout>
                 <Switch>
+                  <Route path="/admin/users">
+                    <Users/>
+                  </Route>
+                  <Route path="/admin/products">
+                    <Products/>
+                  </Route>
+                  <Route path="/admin/sales">
+                    <Sales/>
+                  </Route>
                   <Route path="/admin">
-                    <AdminIndex/>
+                    <Dashboard/>
                   </Route>
                 </Switch>
               </PrivateLayout>

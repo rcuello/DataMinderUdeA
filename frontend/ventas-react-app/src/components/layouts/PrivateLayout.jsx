@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from "../header/Header";
-import Menu from "../menu/Menu";
+import SideBar from "../sideBar/SideBar";
 
 
 const PrivateLayout = ({children}) => {
@@ -11,7 +11,7 @@ const PrivateLayout = ({children}) => {
 
             <div id="layoutSidenav">
                 <div id="layoutSidenav_nav">
-                    <Menu></Menu>
+                    <SideBar/>
                 </div>
                 <div id="layoutSidenav_content">
                     <main>
