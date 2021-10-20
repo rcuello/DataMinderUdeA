@@ -8,9 +8,15 @@ const PrivateRoute = ({roleList,children})=> {
     }
 
     return (
-        <div class="alert alert-danger" role="alert">
-            No estás autorizado para ver este sitio.
+        <div className="container-fluid px-4">
+            <h1 className="mt-4">Acceso restringido</h1>
+            <div class="mb-4">
+                <div class="alert alert-danger" role="alert">
+                    No estás autorizado para ver este sitio.
+                </div>
+            </div>
         </div>
+        
     )
 }
 
