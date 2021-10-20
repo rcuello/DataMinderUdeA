@@ -1,8 +1,44 @@
-import React from 'react';
+import React ,{useEffect , useState} from 'react';
 import {NavLink} from "react-router-dom";
+import { getUsuarios } from '../../utils/api';
 
 const Users = () => {
+     //States   
+     const [usuarios, setUsuarios] = useState([]);
+     const [loading, setLoading] = useState(false);
+     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+ 
 
+    //funciones
+    useEffect(()=>{
+
+       const fetchUsuarios = async ()=>{
+        setLoading(true);
+        
+        await getUsuarios(
+            (response)=>{
+                //console.log('la respuesta que se recibio fue', response);
+                setUsuarios(response.data);
+                setEjecutarConsulta(false);
+                setLoading(false);
+
+            },(error)=>{
+                console.error('Salio un error:', error);
+                setLoading(false);
+            });
+       }
+
+       if(ejecutarConsulta){
+        fetchUsuarios();
+       }
+
+    },[ejecutarConsulta]);
+
+    useEffect(() => {
+        //obtener lista de vehículos desde el backend
+        setEjecutarConsulta(true);
+      }, []);
+    
     return (
         <div className="container-fluid px-4">
             <h1 className="mt-4">Usuarios</h1>
@@ -24,7 +60,17 @@ const Users = () => {
                     </div>
                 </div>
                 <div className="card-body">
-                    <table id="datatablesSimple" className="table table-striped table-bordered">
+                    <TablaUsuarios listaUsuarios={usuarios}/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+const TablaUsuarios = ({listaUsuarios})=>{
+    return (
+        <table id="datatablesSimple" className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -35,40 +81,23 @@ const Users = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Tiger</td>
-                                <td>Nixon</td>
-                                <td>Nixon@yopmail.com</td>
-                                <td>Vendedor</td>
-                                <td>
-                                <NavLink to="/admin/user/key1">Editar</NavLink>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Garrett </td>
-                                <td>Winters</td>
-                                <td>Winters@yopmail.com</td>
-                                <td>Vendedor</td>
-                                <td>
-                                    <NavLink to="/admin/user/key1">Editar</NavLink>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ashton </td>
-                                <td>Cox</td>
-                                <td>Cox@yopmail.com</td>
-                                <td>Admin</td>
-                                <td>
-                                <NavLink to="/admin/user/key1">Editar</NavLink>
-                                </td>
-                            </tr>
-                            
+                        {listaUsuarios.map((item,index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{item.firstName} </td>
+                                    <td>{item.lastName}</td>
+                                    <td>{item.email}</td>
+                                    <td>{item.role}</td>
+                                    <td>
+                                        <NavLink to={`/admin/user/${item.id}`}>Editar</NavLink>
+                                    </td>
+                                </tr>
+                            ) 
+                        })}
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
     )
+
 }
 
 

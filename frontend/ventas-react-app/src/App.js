@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
 import { BrowserRouter as Router,Switch,  Route } from 'react-router-dom';
@@ -21,6 +20,7 @@ import Products from './pages/admin/Products';
 import Sales from './pages/admin/Sales';
 
 import PrivateRoute from './components/routing/PrivateRoute';
+import Product from "./pages/admin/Product";
 
 
 
@@ -53,6 +53,16 @@ function App(){
                   <Route path="/admin/products" exact>
                     <PrivateRoute roleList={["admin","vendedor"]}>
                       <Products/>
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/admin/product/:id" exact>
+                    <PrivateRoute roleList={["admin","vendedor"]}>
+                      <Product/>
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/admin/product/" exact>
+                    <PrivateRoute roleList={["admin","vendedor"]}>
+                      <Product/>
                     </PrivateRoute>
                   </Route>
                   <Route path="/admin/sales" exact>

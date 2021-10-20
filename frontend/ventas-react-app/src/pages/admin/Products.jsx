@@ -1,22 +1,53 @@
-import React from 'react'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { getProductos } from '../../utils/api';
 
 const Products = () => {
-
-    const [mostrarTabla, setMostrarTabla] = useState(true);
-    const [textoBoton, setTextoBoton] = useState("Crear nuevo producto");
-
+    //States   
+    const [productos, setProductos] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+    
+    //funciones
     useEffect(()=>{
-        if(mostrarTabla){
-            setTextoBoton("Crear nuevo producto");
-        }else{
-            setTextoBoton("Mostrar todos los productos");
+
+        const fetchProductos = async ()=>{
+         setLoading(true);
+         
+         await getProductos(
+             (response)=>{
+                 //console.log('la respuesta que se recibio fue', response);
+                 setProductos(response.data);
+                 setEjecutarConsulta(false);
+                 setLoading(false);
+                 //toast.success('Vehículo modificado con éxito');
+ 
+             },(error)=>{
+                 console.error('Salio un error:', error);
+                 setLoading(false);
+                 toast.error('error al cargar productos: '+ error);
+             });
         }
-    }
-    ,[mostrarTabla]);
+ 
+        if(ejecutarConsulta){
+            fetchProductos();
+        }
+ 
+     },[ejecutarConsulta]);
+ 
+     useEffect(() => {
+         //obtener lista de vehículos desde el backend
+         setEjecutarConsulta(true);
+       }, []);
+   
 
     return (
         <div className="container-fluid px-4">
+            <ToastContainer position='bottom-center' autoClose={5000} />
             <h1 className="mt-4">Productos</h1>
             <ol className="breadcrumb mb-4">
                 <li className="breadcrumb-item active">Productos</li>
@@ -30,26 +61,22 @@ const Products = () => {
                         </div>
                         <div className="col">
                         
-                            <button 
-                            onClick ={()=> {
-                                setMostrarTabla(!mostrarTabla)
-                            }}
-                            type="button" className="btn btn-secondary">
+                            <NavLink className="btn btn-secondary" to="/admin/product">
                                 <span className="far fa-plus-square"></span>
-                                {textoBoton}
-                            </button>
+                                Nuevo
+                            </NavLink>
                         </div>
                     </div>
                 </div>
                 <div className="card-body">
-                    {mostrarTabla ? <Detalle/> : <Formulario/>}
+                    <TablaProductos listaProductos={productos}/> 
                 </div>
             </div>
         </div>
     )
 }
 
-const Detalle = ()=>{
+const TablaProductos = ({listaProductos})=>{
     return (
                 <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
@@ -60,34 +87,24 @@ const Detalle = ()=>{
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>Computador de Mesa</td>
-                                <td>23</td>
-                            </tr>
-                            <tr>
-                                <td>02 </td>
-                                <td>Lapiz optico</td>
-                                <td>23</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>03 </td>
-                                <td>Pantalla LCD</td>
-                                <td>23</td>
-                            </tr>
+                        {listaProductos.map((item,index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{item.id} </td>
+                                    <td>{item.name}</td>
+                                    <td>{item.price}</td>
+                                    <td>
+                                        <NavLink to={`/admin/product/${item.id}`}>Editar</NavLink>
+                                    </td>
+                                </tr>
+                            ) 
+                        })}
                             
                         </tbody>
                     </table>
     )
 }
 
-const Formulario = ()=>{
-    return (
-        <div>
-            Formulario
-        </div>
-    )
-}
+
 
 export default Products

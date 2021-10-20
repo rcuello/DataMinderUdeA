@@ -1,7 +1,43 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { getVentas } from '../../utils/api';
 
 const Sales = () => {
+    //States   
+    const [ventas, setVentas] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
     
+    //funciones
+    useEffect(()=>{
+
+        const fetchVentas = async ()=>{
+         setLoading(true);
+         
+         await getVentas(
+             (response)=>{
+                 //console.log('la respuesta que se recibio fue', response);
+                 setVentas(response.data);
+                 setEjecutarConsulta(false);
+                 setLoading(false);
+ 
+             },(error)=>{
+                 console.error('Salio un error:', error);
+                 setLoading(false);
+             });
+        }
+ 
+        if(ejecutarConsulta){
+            fetchVentas();
+        }
+ 
+     },[ejecutarConsulta]);
+ 
+     useEffect(() => {
+         //obtener lista de vehículos desde el backend
+         setEjecutarConsulta(true);
+       }, []);
 
     return (
         <div className="container-fluid px-4">
@@ -26,7 +62,16 @@ const Sales = () => {
                     </div>
                 </div>
                 <div className="card-body">
-                    <table id="datatablesSimple" className="table table-striped table-bordered">
+                    <TablaVentas listaVentas={ventas}/> 
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const TablaVentas = ({listaVentas})=>{
+    return (
+                <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>#Venta</th>
@@ -36,30 +81,22 @@ const Sales = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>FAC01</td>
-                                <td>admin</td>
-                                <td>Julio Verne</td>
-                                <td>$320,800</td>
-                            </tr>
-                            <tr>
-                                <td>FAC02</td>
-                                <td>ventas</td>
-                                <td>Marco Polo</td>
-                                <td>$120,800</td>
-                            </tr>
-                            <tr>
-                                <td>FAC03</td>
-                                <td>nixon</td>
-                                <td>Carlo Magno</td>
-                                <td>$520,800</td>
-                            </tr>
+                        {listaVentas.map((item,index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{item.id} </td>
+                                    <td>{item.vendedor}</td>
+                                    <td>{item.comprador}</td>
+                                    <td>{item.totalVenta}</td>
+                                    <td>
+                                        <NavLink to="/admin/venta/key1">Editar</NavLink>
+                                    </td>
+                                </tr>
+                            ) 
+                        })}
                             
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
     )
 }
 
