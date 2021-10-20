@@ -18,13 +18,15 @@ const genercCallback = (res) => (err, result) => {
         {id:"003",firstName:"Marco",lastName:"Polo",email:"marco@yopmail.com",role:"vendedor"},
         {id:"004",firstName:"Cleopatra",lastName:"Egito",email:"cleo@yopmail.com",role:"admin"}
     ];
-    
+
     res.send(usuarios);
 
   });
 
   rutasUsuario.route('/usuarios').post((req, res) => {
     //crearUsuario(req.body, genercCallback(res));
+    var jsonBody = req.body;
+    console.log(jsonBody);
     res.send("OK");
   });
 

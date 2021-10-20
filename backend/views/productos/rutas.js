@@ -21,9 +21,19 @@ rutasProducto.route('/productos').get((req, res) => {
     res.send(productos);
   });
   
-  rutasProducto.route('/vehiculos').post((req, res) => {
-    //crearVehiculo(req.body, genercCallback(res));
-    res.send("OK");
+  rutasProducto.route('/productos').post((req, res) => {
+    const producto = req.body;
+    //console.log(Object.keys(producto));
+    //https://simonplend.com/how-to-handle-request-validation-in-your-express-api/
+    if(Object.keys(producto).includes('id') &&
+        Object.keys(producto).includes('name') &&
+        Object.keys(producto).includes('price')){
+        res.sendStatus(200);
+    }else{
+        res.sendStatus(500);
+    }
+
+    
   });
   
   rutasProducto.route('/vehiculos/:id').get((req, res) => {
