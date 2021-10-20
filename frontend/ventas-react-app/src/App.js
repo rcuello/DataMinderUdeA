@@ -16,8 +16,12 @@ import RecoveryPwd  from './pages/auth/RecoveryPwd';
 
 import Dashboard from './pages/admin/Dashboard';
 import Users from './pages/admin/Users';
+import User from './pages/admin/User';
 import Products from './pages/admin/Products';
 import Sales from './pages/admin/Sales';
+
+import PrivateRoute from './components/routing/PrivateRoute';
+
 
 
 
@@ -31,17 +35,35 @@ function App(){
             <Route path={["/admin","/admin/users","/admin/products","/admin/sales"]}>
               <PrivateLayout>
                 <Switch>
-                  <Route path="/admin/users">
-                    <Users/>
+                  <Route path="/admin/users" exact>
+                    <PrivateRoute roleList={["admin"]}>
+                      <Users/>
+                    </PrivateRoute>
                   </Route>
-                  <Route path="/admin/products">
-                    <Products/>
+                  <Route path="/admin/user/:id" exact>
+                    <PrivateRoute roleList={["admin"]}>
+                      <User/>
+                    </PrivateRoute>
                   </Route>
-                  <Route path="/admin/sales">
-                    <Sales/>
+                  <Route path="/admin/user" exact>
+                    <PrivateRoute roleList={["admin"]}>
+                      <User/>
+                    </PrivateRoute>
                   </Route>
-                  <Route path="/admin">
-                    <Dashboard/>
+                  <Route path="/admin/products" exact>
+                    <PrivateRoute roleList={["admin","vendedor"]}>
+                      <Products/>
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/admin/sales" exact>
+                    <PrivateRoute roleList={["admin","vendedor"]}>
+                      <Sales/>
+                    </PrivateRoute>
+                  </Route>
+                  <Route path="/admin" exact>
+                    <PrivateRoute roleList={["admin","vendedor"]}>
+                      <Dashboard/>
+                    </PrivateRoute>
                   </Route>
                 </Switch>
               </PrivateLayout>
