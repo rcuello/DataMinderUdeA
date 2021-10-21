@@ -55,12 +55,12 @@ function App(){
                       <Products/>
                     </PrivateRoute>
                   </Route>
-                  <Route path="/admin/product/:id" exact>
+                  <Route path="/admin/product/edit/:id" exact>
                     <PrivateRoute roleList={["admin","vendedor"]}>
                       <Product/>
                     </PrivateRoute>
                   </Route>
-                  <Route path="/admin/product/" exact>
+                  <Route path="/admin/product/new" exact>
                     <PrivateRoute roleList={["admin","vendedor"]}>
                       <Product/>
                     </PrivateRoute>

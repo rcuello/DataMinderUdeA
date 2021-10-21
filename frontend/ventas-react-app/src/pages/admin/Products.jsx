@@ -1,17 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from "react";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Button ,Modal } from 'react-bootstrap';
 
-import { getProductos } from '../../utils/api';
+import { getProductos,deleteProducto } from '../../utils/api';
 
 const Products = () => {
     //States   
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
-    
+
     //funciones
     useEffect(()=>{
 
@@ -61,7 +63,7 @@ const Products = () => {
                         </div>
                         <div className="col">
                         
-                            <NavLink className="btn btn-secondary" to="/admin/product">
+                            <NavLink className="btn btn-secondary" to="/admin/product/new">
                                 <span className="far fa-plus-square"></span>
                                 Nuevo
                             </NavLink>
@@ -72,11 +74,42 @@ const Products = () => {
                     <TablaProductos listaProductos={productos}/> 
                 </div>
             </div>
+            
         </div>
     )
 }
 
 const TablaProductos = ({listaProductos})=>{
+
+    //States
+    const [show, setShow] = useState(false);
+    const [deleteEntity, setDeleteEntity] = useState({});
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    //Functions
+    const confirmDelete = (item)=>{
+        //console.log(item);
+        setDeleteEntity(item);
+        setShow(true);
+    }
+
+    const handleSaveChanges =async ()=>{
+        
+        await deleteProducto(deleteEntity.item._id,(response)=>{
+            //TODO : quitar modal
+            setShow(false);
+            toast.success('Producto eliminado con éxito');
+
+        },(error)=>{
+                //console.log(error);
+                toast.error(''+ error);
+        })
+
+        
+    }
+
     return (
                 <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
@@ -84,6 +117,7 @@ const TablaProductos = ({listaProductos})=>{
                                 <th>Codigo</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,13 +128,32 @@ const TablaProductos = ({listaProductos})=>{
                                     <td>{item.name}</td>
                                     <td>{item.price}</td>
                                     <td>
-                                        <NavLink to={`/admin/product/${item.id}`}>Editar</NavLink>
+                                        <NavLink className="btn btn-primary" to={`/admin/product/edit/${item._id}`}>Editar</NavLink>
+                                        <Button variant="danger" onClick={(e)=> confirmDelete({item})}>Eliminar</Button>
                                     </td>
+                                    
                                 </tr>
                             ) 
                         })}
                             
                         </tbody>
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Modal heading</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                ¿Está seguro de querer eliminar el producto?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Cerrar
+                                </Button>
+                                <Button variant="primary" onClick={handleSaveChanges}>
+                                    Aplicar cambios
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                        
                     </table>
     )
 }

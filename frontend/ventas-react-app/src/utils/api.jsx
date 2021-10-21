@@ -36,7 +36,30 @@ export const getProductos = async (successCallback, errorCallback) => {
     await axios.request(options).then(successCallback).catch(errorCallback);
   };
 
-// CRUD Productos
+export const createProducto = async (data, successCallback, errorCallback) => {
+    const options = {
+      method: 'POST',
+      url: `${BASE_URL}/productos`,
+      headers: { 
+          'Content-Type': 'application/json'
+        },
+      data,
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+export const deleteProducto = async (id, successCallback, errorCallback) => {
+    const options = {
+      method: 'DELETE',
+      url: `${BASE_URL}/productos/${id}`,
+      headers: { 
+          'Content-Type': 'application/json'
+        }
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+// CRUD VENTAS
 // ==============================================
 export const getVentas = async (successCallback, errorCallback) => {
     const url = `${BASE_URL}/ventas`;

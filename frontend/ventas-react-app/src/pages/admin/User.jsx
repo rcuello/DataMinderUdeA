@@ -2,6 +2,15 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const User = () => {
+
+    const onGuardar_Click = ()=>{
+        console.log("guardar");
+    }
+
+    const submitForm  = async(e)=>{
+        e.preventDefault();
+    }
+
     return (
         <div className="container-fluid px-4">
             <h1 className="mt-4">Usuario</h1>
@@ -22,7 +31,7 @@ const User = () => {
                     </div>
                 </div>
                 <div className="card-body">
-                    <form>
+                    <form onSubmit={()=> submitForm()}>
                         <div className="row mb-3">
                             <div className="col-md-6">
                                 <div className="form-floating mb-3 mb-md-0">
@@ -43,8 +52,8 @@ const User = () => {
                                 <label htmlFor="inputEmail">Dirección de correo electrónico</label>
                             </div>
                             <div className="col-md-6">
-                                <select className="form-select" aria-label="Default select example">
-                                    <option selected>Seleccionar Rol</option>
+                                <select className="form-select" required  defaultValue={0} name="roleName">
+                                    <option  disabled value={0}>Seleccionar Rol</option>
                                     <option value="admin">Administrador</option>
                                     <option value="vendedor">Vendedor</option>
                                 </select>
@@ -67,7 +76,7 @@ const User = () => {
                         </div>
                         <div className="mt-4 mb-0">
                             <div className="d-grid">
-                                <button  className="btn btn-primary btn-block">
+                                <button  className="btn btn-primary btn-block" onClick={()=>onGuardar_Click()}>
                                     Guardar
                                 </button>
                             </div>
