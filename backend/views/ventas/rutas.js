@@ -11,9 +11,14 @@ const genercCallback = (res) => (err, result) => {
   };
 
   rutasVenta.route('/ventas').get((req, res) => {
-    console.log('alguien hizo get en la ruta /ventas');
-    //queryAllSales(genercCallback(res));
-    res.send("OK");
+    const ventas =[
+        {id:"FAC01",vendedor:"Ronald",comprador:"Cuello",totalVenta:"320800"},
+        {id:"FAC02",vendedor:"Alejandro",comprador:"Nagno",totalVenta:"120800"},
+        {id:"FAC03",vendedor:"Marco",comprado:"Polo",totalVenta:"25000"},
+        {id:"FAC04",vendedor:"Cleopatra",comprador:"Egito",totalVenta:"520800"}
+    ];
+
+    res.send(ventas);
   });
   
   rutasVenta.route('/ventas').post((req, res) => {

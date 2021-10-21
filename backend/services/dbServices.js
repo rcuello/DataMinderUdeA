@@ -1,31 +1,34 @@
-var mongoClient = require("mongodb").MongoClient;
-var assert = require("assert");
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
 
-var url = "mongodb+srv://rcuello:abc123$$@group-mintic.ayatj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+dotenv.config({ path: './.env' });
 
+const stringConexion = process.env.DATABASE_URL;
+const dbName = process.env.DATABASE_NAME;
 
-async function getUsers()
-{
-    mongoClient.connect(url,function(err,client){
-        assert.equal(null,err);
-        console.log("connected");
-    
-        var db = client.db("sample_training");
-        var collection = db.collection("users");
-    
-        collection.find({}).toArray((err,users)=>{
-            if(err)throw err;
-    
-            console.log("Existen los siguientes usuarios");
-            console.log(users);
-    
-            client.close();
-        });
-    });
-}
+const client = new MongoClient(stringConexion, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
+let baseDeDatos;
 
+const conectarBD = (callback) => {
+  console.log("[db] connecting ... =>",dbName);  
+  client.connect((err, db) => {
+    if (err) {
+      console.error('[db] connection error');
+      return 'error';
+    }
+    baseDeDatos = db.db(dbName);
+    console.log("[db] connection success!");
+    return callback();
+  });
+};
 
-module.exports = {
-    getUsers
-}
+const getDB = () => {
+  return baseDeDatos;
+};
+
+export { conectarBD, getDB };
+

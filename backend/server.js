@@ -10,6 +10,8 @@ import dotenv from 'dotenv';
 import rutasUsuario from "./views/usuarios/rutas.js";
 import rutasProducto from "./views/productos/rutas.js";
 import rutasVenta from "./views/ventas/rutas.js";
+import { conectarBD } from './services/dbServices.js';
+import { MongoClient } from 'mongodb';
 
 
 dotenv.config({ path: './.env' });
@@ -37,12 +39,32 @@ app.use(rutasVenta);
 /*
 CLase 19 de Daniel Saldarriaga (Clase con NodeJs Backend)
 */
+const port = process.env.PORT || 5000;
+
+var url = "mongodb+srv://rcuello:abc123$$@group-mintic.ayatj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+const client = new MongoClient(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+
+
+let conexion ;
+
+
+//Buenas practicas del Profe
+const main = () => {
+    return app.listen(port, () => {
+      console.log(`[http] Listen on port: ${port}`);
+    });
+  };
+
+
 
 // START THE SERVER
 // ==============================================
-const port = process.env.PORT || 5000;
-app.listen(port,function()
-{
-    //ALT + 96 => Comilla francesa
-    console.log(`Escuchando puerto ${port}`);
-});
+//Listen
+//main();
+
+//Connect and Listen
+conectarBD(main);

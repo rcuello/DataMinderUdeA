@@ -1,6 +1,10 @@
 import Express from "express";
+import {MongoClient} from "mongodb";
+import { findAllProductos,createProducto,deleteProducto } from "../../model/productoModel.js";
 
 const rutasProducto = Express.Router();
+
+
 
 const genercCallback = (res) => (err, result) => {
   if (err) {
@@ -12,33 +16,40 @@ const genercCallback = (res) => (err, result) => {
 };
 
 rutasProducto.route('/productos').get((req, res) => {
-    console.log('alguien hizo get en la ruta /vehiculos');
-    //queryAllVehicles(genercCallback(res));
-    const productos =[
-        {codigo:"001",nombre:"Portatil"},
-        {codigo:"002",nombre:"Lapiz"}
+    /*const productos =[
+        {id:"001",name:"Portatil",price:230000},
+        {id:"002",name:"Lapiz",price:40000}
     ];
-    res.send(productos);
+    res.send(productos);*/
+
+    findAllProductos(genercCallback(res));
   });
   
   rutasProducto.route('/productos').post((req, res) => {
     const producto = req.body;
-    //console.log(Object.keys(producto));
+    
     //https://simonplend.com/how-to-handle-request-validation-in-your-express-api/
     if(Object.keys(producto).includes('id') &&
         Object.keys(producto).includes('name') &&
         Object.keys(producto).includes('price')){
-        res.sendStatus(200);
+
+        createProducto(producto,genercCallback(res));
     }else{
         res.sendStatus(500);
     }
 
     
   });
+
+rutasProducto.route('/productos/:id').delete((req, res) => {
+    
+    deleteProducto(req.params.id, genercCallback(res));
+    //res.send("OK");
+  });
   
-  rutasProducto.route('/vehiculos/:id').get((req, res) => {
+  rutasProducto.route('/productos/:id').get((req, res) => {
     console.log('alguien hizo get en la ruta /vehiculos');
-    //consultarVehiculo(req.params.id, genercCallback(res));
+    //deleteProducto(req.params.id, genercCallback(res));
     res.send("OK");
   });
 
