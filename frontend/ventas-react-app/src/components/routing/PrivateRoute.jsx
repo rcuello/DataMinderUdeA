@@ -1,6 +1,12 @@
 import React from "react";
+import { useUser } from "../../context/userContext";
 
 const PrivateRoute = ({roleList,children})=> {
+    //const[user,setUser] = useUser();
+
+    //console.log(user);
+    
+
     const userRole  ="admin";
 
     if(roleList.includes(userRole)){

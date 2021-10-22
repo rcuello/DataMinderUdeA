@@ -1,6 +1,7 @@
 import React ,{useEffect , useState} from 'react';
 import {NavLink} from "react-router-dom";
 import { getUsuarios } from '../../utils/api';
+import {nanoid} from "nanoid";
 
 const Users = () => {
      //States   
@@ -83,7 +84,7 @@ const TablaUsuarios = ({listaUsuarios})=>{
                         <tbody>
                         {listaUsuarios.map((item,index) => {
                             return (
-                                <tr key={index}>
+                                <tr key={nanoid()}>
                                     <td>{item.firstName} </td>
                                     <td>{item.lastName}</td>
                                     <td>{item.email}</td>

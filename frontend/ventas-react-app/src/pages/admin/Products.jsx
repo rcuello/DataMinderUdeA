@@ -1,10 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import NumberFormat from 'react-number-format';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button ,Modal } from 'react-bootstrap';
+import {nanoid} from "nanoid";
 
 import { getProductos,deleteProducto } from '../../utils/api';
 
@@ -16,6 +18,7 @@ const Products = () => {
 
     //funciones
     useEffect(()=>{
+        
 
         const fetchProductos = async ()=>{
          setLoading(true);
@@ -46,7 +49,13 @@ const Products = () => {
          setEjecutarConsulta(true);
        }, []);
    
-
+    
+    //Is it possible to share states between components using the useState() hook in React?
+    //https://stackoverflow.com/questions/53451584/is-it-possible-to-share-states-between-components-using-the-usestate-hook-in-r
+    //https://es.reactjs.org/docs/lifting-state-up.html   
+    const onProductoDeletedHandler = () =>{
+        setEjecutarConsulta(true);
+    }   
     return (
         <div className="container-fluid px-4">
             <ToastContainer position='bottom-center' autoClose={5000} />
@@ -56,22 +65,18 @@ const Products = () => {
             </ol>
             <div className="card mb-4">
                 <div className="card-header">
-                    <div className="row">
-                        <div className="col-10">
+                    <div className="d-flex justify-content-between">
+                        <div>
                             <i className="fas fa-table me-1"></i>
                             Administración de productos
                         </div>
-                        <div className="col">
-                        
-                            <NavLink className="btn btn-secondary" to="/admin/product/new">
-                                <span className="far fa-plus-square"></span>
-                                Nuevo
-                            </NavLink>
-                        </div>
+                        <NavLink className="link-dark" to="/admin/product/new">
+                                <i className="far fa-plus-square"></i>
+                        </NavLink>
                     </div>
                 </div>
                 <div className="card-body">
-                    <TablaProductos listaProductos={productos}/> 
+                    <TablaProductos listaProductos={productos} onProductoDeleted={onProductoDeletedHandler}/> 
                 </div>
             </div>
             
@@ -79,7 +84,7 @@ const Products = () => {
     )
 }
 
-const TablaProductos = ({listaProductos})=>{
+const TablaProductos = ({listaProductos , onProductoDeleted})=>{
 
     //States
     const [show, setShow] = useState(false);
@@ -91,6 +96,7 @@ const TablaProductos = ({listaProductos})=>{
     //Functions
     const confirmDelete = (item)=>{
         //console.log(item);
+        
         setDeleteEntity(item);
         setShow(true);
     }
@@ -100,6 +106,9 @@ const TablaProductos = ({listaProductos})=>{
         await deleteProducto(deleteEntity.item._id,(response)=>{
             //TODO : quitar modal
             setShow(false);
+            
+            onProductoDeleted();
+
             toast.success('Producto eliminado con éxito');
 
         },(error)=>{
@@ -123,13 +132,25 @@ const TablaProductos = ({listaProductos})=>{
                         <tbody>
                         {listaProductos.map((item,index) => {
                             return (
-                                <tr key={index}>
+                                <tr key={nanoid()}>
                                     <td>{item.id} </td>
                                     <td>{item.name}</td>
-                                    <td>{item.price}</td>
+                                    <td>{
+                                            <NumberFormat thousandSeparator={true} value={item.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                         }
+                                                                        </td>
                                     <td>
-                                        <NavLink className="btn btn-primary" to={`/admin/product/edit/${item._id}`}>Editar</NavLink>
-                                        <Button variant="danger" onClick={(e)=> confirmDelete({item})}>Eliminar</Button>
+                                        <div className="d-flex justify-content-around">
+                                            <NavLink className="link-primary" to={`/admin/product/edit/${item._id}`}>
+                                                <i className="fas fa-pencil-alt"></i>
+                                            </NavLink>
+                                            
+                                            <span>&nbsp;</span>
+                                            
+                                            <NavLink className="link-danger" to="#" onClick={(e)=> confirmDelete({item})}>
+                                                <i className="fas fa-trash"></i>
+                                            </NavLink>
+                                        </div>
                                     </td>
                                     
                                 </tr>

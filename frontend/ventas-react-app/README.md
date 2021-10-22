@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### Clases
+*15* (02:05:15)  Estados anidados , FormData (useRef), Darkmode (context) , express operator (...) , validacion formulario
+
+*16* (02:06:13) Responsive , FormData, contextos comunes, Mencion de Redux,SideBar links,media query , explicacion front - backend ,explicacion REST - HTTP , insomnia , abreBoca mongoAtlas , abreboca fethc - axios , axios en React
+
+*17* (02:06:13) Axios , Editar vehiculo , mencion de useParams (00h:20min) , hook useLocation para colocar menuActivo
+    componente generico Menu activo con useLocation , hook personalizado useActiveRoute , usar keys en los componentes que usen maps
+    generar keys unicos con libreria nanoid
+
+*19* Express , routes 
+

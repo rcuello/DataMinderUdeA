@@ -1,3 +1,4 @@
+import {useState} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import './App.css';
 import { BrowserRouter as Router,Switch,  Route } from 'react-router-dom';
@@ -6,6 +7,11 @@ import { BrowserRouter as Router,Switch,  Route } from 'react-router-dom';
 import AuthLayout from './components/layouts/AuthLayout';
 import PublicLayout from "./components/layouts/PublicLayout";
 import PrivateLayout from "./components/layouts/PrivateLayout";
+//************************************************************ */
+
+
+//******** Context ********
+import { UserContext } from './context/userContext';
 //************************************************************ */
 
 import Index from './pages/Index';
@@ -27,8 +33,16 @@ import Product from "./pages/admin/Product";
 
 
 function App(){
+  const [userData, setUserData] = useState({});
+
+  //var user = {username:"admin",role:"admin"};
+
+  //console.log('response con datos del usuario', user);
+  //setUserData(user);
+
   return (
     <div className="App">
+      <UserContext.Provider value={{ userData, setUserData }}>
         <Router>
           <Switch>
 
@@ -103,6 +117,7 @@ function App(){
           </Switch>
 
         </Router>
+        </UserContext.Provider>
     </div>
   )
 

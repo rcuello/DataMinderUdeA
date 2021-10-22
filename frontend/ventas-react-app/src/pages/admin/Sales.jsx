@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { getVentas } from '../../utils/api';
+import {nanoid} from "nanoid";
 
 const Sales = () => {
     //States   
@@ -83,7 +84,7 @@ const TablaVentas = ({listaVentas})=>{
                         <tbody>
                         {listaVentas.map((item,index) => {
                             return (
-                                <tr key={index}>
+                                <tr key={nanoid()}>
                                     <td>{item.id} </td>
                                     <td>{item.vendedor}</td>
                                     <td>{item.comprador}</td>
