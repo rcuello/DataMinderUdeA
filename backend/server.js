@@ -7,9 +7,9 @@ import Express, { json } from 'express';
 import Cors from 'cors';
 import dotenv from 'dotenv';
 
-import rutasUsuario from "./views/usuarios/rutas.js";
-import rutasProducto from "./views/productos/rutas.js";
-import rutasVenta from "./views/ventas/rutas.js";
+import rutasUsuario from "./views/usuarios/usuario.route.js";
+import rutasProducto from "./views/productos/producto.route.js";
+import rutasVenta from "./views/ventas/venta.route.js";
 import { conectarBD } from './services/dbServices.js';
 import { MongoClient } from 'mongodb';
 
@@ -33,9 +33,17 @@ Activar NodeMon
 
 // ROUTES
 // ==============================================
+
 app.use(rutasUsuario);
 app.use(rutasProducto);
 app.use(rutasVenta);
+
+
+// TODO: error handler
+//Caso 1: UnhandledPromiseRejectionWarning: TypeError: Argument passed in must be a Buffer or string of 12 bytes or a string of 24 hex characters
+// buscar por GUID y el usuario envie un id invalido.
+
+
 /*
 CLase 19 de Daniel Saldarriaga (Clase con NodeJs Backend)
 */

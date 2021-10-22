@@ -1,6 +1,5 @@
 import Express from "express";
-import {MongoClient} from "mongodb";
-import { findAllProductos,createProducto,deleteProducto } from "../../model/productoModel.js";
+import { findAllProductos,createProducto,deleteProducto,findProductoById, updateProducto } from "../../model/producto.model.js";
 
 const rutasProducto = Express.Router();
 
@@ -47,10 +46,16 @@ rutasProducto.route('/productos/:id').delete((req, res) => {
     //res.send("OK");
   });
   
-  rutasProducto.route('/productos/:id').get((req, res) => {
-    console.log('alguien hizo get en la ruta /vehiculos');
-    //deleteProducto(req.params.id, genercCallback(res));
-    res.send("OK");
+rutasProducto.route('/productos/:id').get((req, res) => {
+    
+    findProductoById(req.params.id, genercCallback(res));
+    //res.send("OK");
+  });
+
+rutasProducto.route('/productos/:id').patch((req, res) => {
+  const producto = req.body;  
+  updateProducto(req.params.id,producto, genercCallback(res));
+    //res.send("OK");
   });
 
   export default rutasProducto;
