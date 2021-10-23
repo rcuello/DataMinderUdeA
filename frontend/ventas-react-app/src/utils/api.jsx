@@ -12,15 +12,53 @@ export const getUsuarios = async (successCallback, errorCallback) => {
       method: 'GET',
       url: url
     };
-    /*const options = {
-        method: 'GET',
-        url: `${BASE_URL}/${PATH_USUARIOS}`,
-        headers: {
-            //"Content-Type":"application/json"
-          Authorization: getToken(),
+   
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+  export const createUsuario = async (data, successCallback, errorCallback) => {
+    const options = {
+      method: 'POST',
+      url: `${BASE_URL}/usuarios`,
+      headers: { 
+          'Content-Type': 'application/json'
         },
-      };*/
-      //console.log("get:",url)
+      data,
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+  export const deleteUsuario = async (id, successCallback, errorCallback) => {
+    const options = {
+      method: 'DELETE',
+      url: `${BASE_URL}/usuarios/${id}`,
+      headers: { 
+          'Content-Type': 'application/json'
+        }
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+  export const findUsuarioById = async (id, successCallback, errorCallback) => {
+    const options = {
+      method: 'GET',
+      url: `${BASE_URL}/usuarios/${id}`,
+      headers: { 
+          'Content-Type': 'application/json'
+        },
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+  export const updateUsuario = async (id,data, successCallback, errorCallback) => {
+    const options = {
+      method: 'PATCH',
+      url: `${BASE_URL}/usuarios/${id}`,
+      headers: { 
+          'Content-Type': 'application/json'
+        },
+        data
+    };
     await axios.request(options).then(successCallback).catch(errorCallback);
   };
 

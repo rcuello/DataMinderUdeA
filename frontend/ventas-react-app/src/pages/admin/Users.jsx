@@ -1,8 +1,11 @@
 import React ,{useEffect , useState} from 'react';
 import {NavLink} from "react-router-dom";
-import { getUsuarios } from '../../utils/api';
+import { deleteUsuario, getUsuarios } from '../../utils/api';
 import { Button ,Modal } from 'react-bootstrap';
 import {nanoid} from "nanoid";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Users = () => {
      //States   
@@ -40,10 +43,15 @@ const Users = () => {
         //obtener lista de vehículos desde el backend
         setEjecutarConsulta(true);
       }, []);
+
+      const onUsuarioDeletedHandler = () =>{
+        setEjecutarConsulta(true);
+    }  
     
     return (
         <div className="container-fluid px-4">
             <h1 className="mt-4">Usuarios</h1>
+            <ToastContainer position='bottom-center' autoClose={5000} />
             
             <div className="card mb-4">
                 <div className="card-header">
@@ -58,7 +66,7 @@ const Users = () => {
                         </div>
                     </div>
                 <div className="card-body">
-                    <TablaUsuarios listaUsuarios={usuarios}/>
+                    <TablaUsuarios listaUsuarios={usuarios} onUsuarioDeleted={onUsuarioDeletedHandler}/>
                 </div>
             </div>
         </div>
@@ -66,7 +74,7 @@ const Users = () => {
 }
 
 
-const TablaUsuarios = ({listaUsuarios})=>{
+const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
     //States
     const [show, setShow] = useState(false);
     const [deleteEntity, setDeleteEntity] = useState({});
@@ -83,7 +91,18 @@ const TablaUsuarios = ({listaUsuarios})=>{
 
     const handleSaveChanges =async ()=>{
         
-       
+        await deleteUsuario(deleteEntity.item._id,(response)=>{
+            //TODO : quitar modal
+            setShow(false);
+            
+            onUsuarioDeleted();
+
+            toast.success('Usuario eliminado con éxito');
+
+        },(error)=>{
+                //console.log(error);
+                toast.error(''+ error);
+        })
 
         
     }
@@ -106,7 +125,7 @@ const TablaUsuarios = ({listaUsuarios})=>{
                                     <td>{item.firstName} </td>
                                     <td>{item.lastName}</td>
                                     <td>{item.email}</td>
-                                    <td>{item.role}</td>
+                                    <td>{item.roleName}</td>
                                     <td>
                                         <div className="d-flex justify-content-around">
                                             <NavLink className="link-primary" to={`/admin/user/edit/${item._id}`}>
@@ -129,7 +148,7 @@ const TablaUsuarios = ({listaUsuarios})=>{
                                 <Modal.Title>Modal heading</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                ¿Está seguro de querer eliminar el producto?
+                                ¿Está seguro de querer eliminar el Usuario?
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
