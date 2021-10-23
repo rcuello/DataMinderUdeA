@@ -1,5 +1,5 @@
 import Express from "express";
-
+import { findAllUsuarios,createUsuario,deleteUsuario,findUsuarioById, updateUsuario } from "../../model/usuario.model.js";
 const rutasUsuario = Express.Router();
 
 const genercCallback = (res) => (err, result) => {
@@ -12,34 +12,36 @@ const genercCallback = (res) => (err, result) => {
 
   rutasUsuario.route('/usuarios').get((req, res) => {
     
-    const usuarios =[
+    /*const usuarios =[
         {id:"001",firstName:"Ronald",lastName:"Cuello",email:"admin@yopmail.com",role:"admin"},
         {id:"002",firstName:"Alejandro",lastName:"Nagno",email:"magnus@yopmail.com",role:"vendedor"},
         {id:"003",firstName:"Marco",lastName:"Polo",email:"marco@yopmail.com",role:"vendedor"},
         {id:"004",firstName:"Cleopatra",lastName:"Egito",email:"cleo@yopmail.com",role:"admin"}
     ];
 
-    res.send(usuarios);
+    res.send(usuarios);*/
+
+    findAllUsuarios(genercCallback(res));
 
   });
 
   rutasUsuario.route('/usuarios').post((req, res) => {
-    //crearUsuario(req.body, genercCallback(res));
-    var jsonBody = req.body;
-    console.log(jsonBody);
-    res.send("OK");
+    const json = req.body;
+    createUsuario(json,genercCallback(res));
   });
 
   rutasUsuario.route('/usuarios/:id').get((req, res) => {
-    console.log('alguien hizo get en la ruta /usuarios');
-    res.send("OK");
-    //consultarUsuario(req.params.id, genercCallback(res));
+    findUsuarioById(req.params.id, genercCallback(res));
   });
 
   rutasUsuario.route('/usuarios/:id').patch((req, res) => {
-    var id = req.params.id;
-    //editarUsuario(req.params.id, req.body, genercCallback(res));
-    res.send("OK");
+    const json = req.body;  
+    updateUsuario(req.params.id,json, genercCallback(res));
+  });
+
+  rutasUsuario.route('/usuarios/:id').delete((req, res) => {
+    
+    deleteUsuario(req.params.id, genercCallback(res));
   });
 
   export default rutasUsuario;

@@ -1,5 +1,5 @@
 import Express from "express";
-
+import { findAllVentas,createVenta,deleteVenta,findVentaById, updateVenta } from "../../model/venta.model.js";
 const rutasVenta = Express();
 
 const genercCallback = (res) => (err, result) => {
@@ -11,33 +11,33 @@ const genercCallback = (res) => (err, result) => {
   };
 
   rutasVenta.route('/ventas').get((req, res) => {
-    const ventas =[
+    /*const ventas =[
         {id:"FAC01",vendedor:"Ronald",comprador:"Cuello",totalVenta:"320800"},
         {id:"FAC02",vendedor:"Alejandro",comprador:"Nagno",totalVenta:"120800"},
         {id:"FAC03",vendedor:"Marco",comprado:"Polo",totalVenta:"25000"},
         {id:"FAC04",vendedor:"Cleopatra",comprador:"Egito",totalVenta:"520800"}
     ];
 
-    res.send(ventas);
+    res.send(ventas);*/
+    findAllVentas(genercCallback(res));
   });
   
   rutasVenta.route('/ventas').post((req, res) => {
-    //crearVenta(req.body, genercCallback(res));
-    res.send("OK");
+    const json = req.body;
+    createVenta(json,genercCallback(res));
   });
   
   rutasVenta.route('/ventas/:id').get((req, res) => {
-    console.log('alguien hizo get en la ruta /ventas');
-    //consultarVenta(req.params.id, genercCallback(res));
-    res.send("OK");
+    findVentaById(req.params.id, genercCallback(res));
   });
   
   rutasVenta.route('/ventas/:id').patch((req, res) => {
-    //editarVenta(req.params.id, req.body, genercCallback(res));
+    const json = req.body;  
+    updateVenta(req.params.id,json, genercCallback(res));
   });
   
   rutasVenta.route('/ventas/:id').delete((req, res) => {
-    //eliminarVenta(req.params.id, genercCallback(res));
+    deleteVenta(req.params.id, genercCallback(res));
   });
 
 export default rutasVenta;

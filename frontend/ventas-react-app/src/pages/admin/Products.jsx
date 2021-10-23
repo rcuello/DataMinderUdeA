@@ -76,7 +76,12 @@ const Products = () => {
                     </div>
                 </div>
                 <div className="card-body">
-                    <TablaProductos listaProductos={productos} onProductoDeleted={onProductoDeletedHandler}/> 
+                    {
+                    (Array.isArray(productos) && productos.length) ?
+                        <TablaProductos listaProductos={productos} onProductoDeleted={onProductoDeletedHandler}/>
+                    :
+                        <EmptyTable />
+                }
                 </div>
             </div>
             
@@ -119,6 +124,8 @@ const TablaProductos = ({listaProductos , onProductoDeleted})=>{
         
     }
 
+   
+
     return (
                 <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
@@ -130,6 +137,7 @@ const TablaProductos = ({listaProductos , onProductoDeleted})=>{
                             </tr>
                         </thead>
                         <tbody>
+                        
                         {listaProductos.map((item,index) => {
                             return (
                                 <tr key={nanoid()}>
@@ -176,6 +184,26 @@ const TablaProductos = ({listaProductos , onProductoDeleted})=>{
                         </Modal>
                         
                     </table>
+    )
+}
+
+const EmptyTable = () =>{
+    return (
+        <table id="dtDataSet" className="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colSpan="4">No hay productos disponibles</td>
+            </tr>
+        </tbody>
+    </table>
     )
 }
 

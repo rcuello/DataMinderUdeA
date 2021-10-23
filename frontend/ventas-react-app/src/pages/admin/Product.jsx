@@ -1,5 +1,5 @@
 import React, {useState,useRef,useEffect } from 'react';
-import { NavLink,useLocation,useParams } from 'react-router-dom';
+import { NavLink,useParams } from 'react-router-dom';
 import { createProducto,findProductoById,updateProducto } from '../../utils/api';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -35,6 +35,7 @@ const Product = () => {
     
                 },(error)=>{
                     console.error('Salio un error:', error);
+                    toast.error("Ha ocurrido un error:"+error);
                     //setLoading(false);
                 });
            }

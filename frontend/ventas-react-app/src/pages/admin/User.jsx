@@ -1,15 +1,29 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React ,{useState,useRef,useEffect } from 'react';
+import { NavLink , useParams } from 'react-router-dom';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Button ,Modal } from 'react-bootstrap';
 
 const User = () => {
+
+    const { id } = useParams();
+
+    const [editMode, setEditMode] = useState(id!==undefined);
+    const [usuarioEditable,setUsuarioEditable] = useState({});
+    const [show, setShow] = useState(false);
+
+    const formulario = useRef(null);
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        setShow(true);
+    }
 
     const onGuardar_Click = ()=>{
         console.log("guardar");
     }
 
-    const submitForm  = async(e)=>{
-        e.preventDefault();
-    }
 
     return (
         <div className="container-fluid px-4">
@@ -31,7 +45,7 @@ const User = () => {
                     </div>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={()=> submitForm()}>
+                    <form ref={formulario} onSubmit={handleSubmit}>
                         <div className="row mb-3">
                             <div className="col-md-6">
                                 <div className="form-floating mb-3 mb-md-0">
@@ -74,11 +88,15 @@ const User = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="mt-4 mb-0">
-                            <div className="d-grid">
-                                <button  className="btn btn-primary btn-block" onClick={()=>onGuardar_Click()}>
+                        <div className="row">
+                            <div className="d-flex justify-content-end">
+                                <NavLink  className="btn btn-secondary" to="/admin/users">
+                                    Cancelar
+                                </NavLink>
+                                <span>&nbsp;</span>
+                                <Button variant="primary" type="submit">
                                     Guardar
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     </form>
