@@ -108,6 +108,8 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
     }
 
     return (
+        <>
+        <input type="text" placeholder="Buscar"/>
         <table id="datatablesSimple" className="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -160,6 +162,7 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
                             </Modal.Footer>
                         </Modal>
                     </table>
+                </>
     )
 
 }

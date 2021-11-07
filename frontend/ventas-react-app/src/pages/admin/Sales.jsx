@@ -2,7 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { getVentas } from '../../utils/api';
+import { Button ,Modal } from 'react-bootstrap';
 import {nanoid} from "nanoid";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Sales = () => {
     //States   
@@ -43,27 +47,22 @@ const Sales = () => {
     return (
         <div className="container-fluid px-4">
             <h1 className="mt-4">Ventas</h1>
-            <ol className="breadcrumb mb-4">
-                <li className="breadcrumb-item active">Ventas</li>
-            </ol>
+            <ToastContainer position='bottom-center' autoClose={5000} />
+            
             <div className="card mb-4">
-            <div className="card-header">
-                    <div className="row">
-                        <div className="col-10">
-                            <i className="fas fa-table me-1"></i>
-                            Administración de ventas
-                        </div>
-                        <div className="col">
-                        
-                            <button type="button" className="btn btn-default">
-                                <span className="far fa-plus-square"></span>
-                                Nuevo
-                            </button>
+                <div className="card-header">
+                        <div className="d-flex justify-content-between">
+                            <div>
+                                <i className="fas fa-table me-1"></i>
+                                Administración de ventas
+                            </div>
+                            <NavLink className="link-dark" to="/admin/sales/new">
+                                    <i className="far fa-plus-square"></i>
+                            </NavLink>
                         </div>
                     </div>
-                </div>
                 <div className="card-body">
-                    <TablaVentas listaVentas={ventas}/> 
+                    <TablaVentas listaVentas={ventas}/>
                 </div>
             </div>
         </div>

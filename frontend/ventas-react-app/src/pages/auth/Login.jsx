@@ -1,6 +1,6 @@
 import React , {useEffect , useState } from "react";
 import {Link,NavLink} from "react-router-dom";
-
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Login() {
     const [email,setEmail] = useState("");
@@ -19,7 +19,7 @@ function Login() {
         console.log("cambio de email");
 
     },[email]);*/
-
+    const { loginWithRedirect } = useAuth0();
     return (
        
     <div className="container">
@@ -31,7 +31,9 @@ function Login() {
 
                             <div className="card-body text-center py-3">
                                 <div className="small">
-                                    <a href="#" className="btn btn-danger btn-block"><i className="fab fa-google"></i> Continuar con <b>Google</b></a>
+                                    <NavLink to="#" className="btn btn-danger btn-block" onClick={() => loginWithRedirect()}>
+                                        <i className="fab fa-google"></i> Continuar con <b>Google</b>
+                                    </NavLink>
                                 </div>
                             </div>
 

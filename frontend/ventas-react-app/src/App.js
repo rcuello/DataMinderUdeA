@@ -8,7 +8,7 @@ import AuthLayout from './components/layouts/AuthLayout';
 import PublicLayout from "./components/layouts/PublicLayout";
 import PrivateLayout from "./components/layouts/PrivateLayout";
 //************************************************************ */
-
+import { Auth0Provider } from "@auth0/auth0-react";
 
 //******** Context ********
 import { UserContext } from './context/userContext';
@@ -27,6 +27,7 @@ import Sales from './pages/admin/Sales';
 
 import PrivateRoute from './components/routing/PrivateRoute';
 import Product from "./pages/admin/Product";
+import Sale from "./pages/admin/Sale";
 
 
 
@@ -41,89 +42,100 @@ function App(){
   //setUserData(user);
 
   return (
-    <div className="App">
-      <UserContext.Provider value={{ userData, setUserData }}>
-        <Router>
-          <Switch>
+    <Auth0Provider
+    domain="misiontic-dataminder.us.auth0.com"
+    clientId="6aqF3InHWeNUJloZMUxUh6jUdgasqTIx"
+    redirectUri={window.location.origin}>
+      <div className="App">
+        <UserContext.Provider value={{ userData, setUserData }}>
+          <Router>
+            <Switch>
 
-            <Route path={["/admin","/admin/users","/admin/products","/admin/sales"]}>
-              <PrivateLayout>
-                <Switch>
-                  <Route path="/admin/users" exact>
-                    <PrivateRoute roleList={["admin"]}>
-                      <Users/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin/user/:id" exact>
-                    <PrivateRoute roleList={["admin"]}>
-                      <User/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin/user" exact>
-                    <PrivateRoute roleList={["admin"]}>
-                      <User/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin/user/edit/:id" exact>
-                    <PrivateRoute roleList={["admin"]}>
-                      <User/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin/products" exact>
-                    <PrivateRoute roleList={["admin","vendedor"]}>
-                      <Products/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin/product/edit/:id" exact>
-                    <PrivateRoute roleList={["admin","vendedor"]}>
-                      <Product/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin/product/new" exact>
-                    <PrivateRoute roleList={["admin","vendedor"]}>
-                      <Product/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin/sales" exact>
-                    <PrivateRoute roleList={["admin","vendedor"]}>
-                      <Sales/>
-                    </PrivateRoute>
-                  </Route>
-                  <Route path="/admin" exact>
-                    <PrivateRoute roleList={["admin","vendedor"]}>
-                      <Dashboard/>
-                    </PrivateRoute>
-                  </Route>
-                </Switch>
-              </PrivateLayout>
-            </Route>
+              <Route path={["/admin","/admin/users","/admin/products","/admin/sales"]}>
+                <PrivateLayout>
+                  <Switch>
+                    <Route path="/admin/users" exact>
+                      <PrivateRoute roleList={["admin"]}>
+                        <Users/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/user/:id" exact>
+                      <PrivateRoute roleList={["admin"]}>
+                        <User/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/user" exact>
+                      <PrivateRoute roleList={["admin"]}>
+                        <User/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/user/edit/:id" exact>
+                      <PrivateRoute roleList={["admin"]}>
+                        <User/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/products" exact>
+                      <PrivateRoute roleList={["admin","vendedor"]}>
+                        <Products/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/product/edit/:id" exact>
+                      <PrivateRoute roleList={["admin","vendedor"]}>
+                        <Product/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/product/new" exact>
+                      <PrivateRoute roleList={["admin","vendedor"]}>
+                        <Product/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/sales/new" exact>
+                      <PrivateRoute roleList={["admin","vendedor"]}>
+                        <Sale/>
+                      </PrivateRoute>
+                    </Route>
+                    <Route path="/admin/sales" exact>
+                      <PrivateRoute roleList={["admin","vendedor"]}>
+                        <Sales/>
+                      </PrivateRoute>
+                    </Route>
+                    
+                    <Route path="/admin" exact>
+                      <PrivateRoute roleList={["admin","vendedor"]}>
+                        <Dashboard/>
+                      </PrivateRoute>
+                    </Route>
+                  </Switch>
+                </PrivateLayout>
+              </Route>
 
-            <Route path={["/login","/register","/recovery"]} exact>
-             <AuthLayout>
-                <Switch>
-                  <Route path='/login'>
-                    <Login></Login>
-                  </Route>
-                  <Route path="/register">
-                    <Register></Register>
-                  </Route>
-                  <Route path="/recovery">
-                    <RecoveryPwd></RecoveryPwd>
-                  </Route>
-                </Switch>
-             </AuthLayout>
-            </Route>
+              <Route path={["/login","/register","/recovery"]} exact>
+              <AuthLayout>
+                  <Switch>
+                    <Route path='/login'>
+                      <Login></Login>
+                    </Route>
+                    <Route path="/register">
+                      <Register></Register>
+                    </Route>
+                    <Route path="/recovery">
+                      <RecoveryPwd></RecoveryPwd>
+                    </Route>
+                  </Switch>
+              </AuthLayout>
+              </Route>
 
-            <Route path={["/"]}>
-              <PublicLayout>
-                <Index></Index>
-              </PublicLayout>
-            </Route>
-          </Switch>
+              <Route path={["/"]}>
+                <PublicLayout>
+                  <Index></Index>
+                </PublicLayout>
+              </Route>
+            </Switch>
 
-        </Router>
-        </UserContext.Provider>
-    </div>
+          </Router>
+          </UserContext.Provider>
+      </div>
+    </Auth0Provider>
   )
 
 }
