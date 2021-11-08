@@ -1,7 +1,15 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const SideBar = ()=>{
+    const { user,logout,isAuthenticated,isLoading } = useAuth0();
+    var username = "";
+
+    if(isAuthenticated){
+        username=user.nickname;
+    }
+
     return <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div className="sb-sidenav-menu">
             <div className="nav">
@@ -12,11 +20,28 @@ const SideBar = ()=>{
                 <SideBarPage icono="fas fa-columns"         nombre="Ventas" ruta="/admin/sales"/>
             </div>
         </div>
+        
         <div className="sb-sidenav-footer">
-            <div className="small">Logged in as:</div>
-            administrador
+        {
+            isAuthenticated ? <DisplayName username={username}/> :
+            <NavLink to="/login">Iniciar sesión</NavLink>
+        }
         </div>
     </nav>
+}
+
+const DisplayName = ({username}) => {
+    const { logout } = useAuth0();
+
+    return (
+        <>
+        <button onClick={() => logout({ returnTo: window.location.origin })}>
+        Cerrar sesión
+        </button>
+            <div className="small">Logged in as:</div>
+            {username}
+        </>
+    );
 }
 
 const SideBarPage = ({icono,ruta,nombre})=>{
