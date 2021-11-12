@@ -3,9 +3,23 @@ import axios from "axios";
 const BASE_URL      = "http://localhost:3011";
 //const PATH_USUARIOS = process.env.REACT_APP_PATH_USUARIOS;
 
+const getToken = () => {
+  return `Bearer ${localStorage.getItem('token')}`;
+};
 
 // CRUD Usuarios
 // ==============================================
+export const obtenerDatosUsuario = async (successCallback, errorCallback) => {
+  const options = {
+    method: 'GET',
+    url: `${BASE_URL}/usuarios/self/`,
+    headers: {
+      Authorization: getToken(), // 3. enviarle el token a backend
+    },
+  };
+  await axios.request(options).then(successCallback).catch(errorCallback);
+};
+
 export const getUsuarios = async (successCallback, errorCallback) => {
     const url = `${BASE_URL}/usuarios`;
     const options = {
@@ -127,6 +141,18 @@ export const getVentas = async (successCallback, errorCallback) => {
     const options = {
       method: 'GET',
       url: url
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+  export const createVenta = async (data, successCallback, errorCallback) => {
+    const options = {
+      method: 'POST',
+      url: `${BASE_URL}/ventas`,
+      headers: { 
+          'Content-Type': 'application/json'
+        },
+      data,
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
   };

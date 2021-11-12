@@ -70,6 +70,13 @@ const Sales = () => {
 }
 
 const TablaVentas = ({listaVentas})=>{
+
+    const formatCurrency = (amount)=>{
+        const options1 = { style: 'currency', currency: 'COP' };
+        const numberFormat1 = new Intl.NumberFormat('es-CO', options1);
+        return numberFormat1.format(amount);
+    }
+
     return (
                 <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
@@ -84,13 +91,10 @@ const TablaVentas = ({listaVentas})=>{
                         {listaVentas.map((item,index) => {
                             return (
                                 <tr key={nanoid()}>
-                                    <td>{item.id} </td>
-                                    <td>{item.vendedor}</td>
-                                    <td>{item.comprador}</td>
-                                    <td>{item.totalVenta}</td>
-                                    <td>
-                                        <NavLink to="/admin/venta/key1">Editar</NavLink>
-                                    </td>
+                                    <td>{item.saleId} </td>
+                                    <td>{item.currentUser}</td>
+                                    <td>{item.buyer}</td>
+                                    <td>{formatCurrency(item.total)}</td>
                                 </tr>
                             ) 
                         })}
