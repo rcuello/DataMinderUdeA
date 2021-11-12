@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL      = "http://localhost:3011";
+//const BASE_URL      = "http://localhost:3011";
+const BASE_URL      = "https://cryptic-coast-02683.herokuapp.com";
 //const PATH_USUARIOS = process.env.REACT_APP_PATH_USUARIOS;
 
 const getToken = () => {
