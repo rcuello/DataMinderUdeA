@@ -1,5 +1,5 @@
 import Express from "express";
-import { findAllUsuarios,createUsuario,deleteUsuario,findUsuarioById, updateUsuario } from "../../model/usuario.model.js";
+import { findAllUsuarios,createUsuario,deleteUsuario,findUsuarioById, updateUsuario,consultarOCrearUsuario } from "../../model/usuario.model.js";
 const rutasUsuario = Express.Router();
 
 const genercCallback = (res) => (err, result) => {
@@ -42,6 +42,13 @@ const genercCallback = (res) => (err, result) => {
   rutasUsuario.route('/usuarios/:id').delete((req, res) => {
     
     deleteUsuario(req.params.id, genercCallback(res));
+  });
+
+  rutasUsuario.route('/usuarios/self').get((req, res) => {
+    
+    console.log('alguien hizo get en la ruta /self');
+    consultarOCrearUsuario(req, genercCallback(res));
+
   });
 
   export default rutasUsuario;
