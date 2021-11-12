@@ -126,11 +126,22 @@ function App(){
               </AuthLayout>
               </Route>
 
-              <Route path={["/"]}>
+              <Route path={["/index2"]}>
                 <PublicLayout>
                   <Index></Index>
                 </PublicLayout>
               </Route>
+
+              <Route path={["/"]}>
+              <AuthLayout>
+                  <Switch>
+                    <Route path='/'>
+                      <Login></Login>
+                    </Route>
+                  </Switch>
+              </AuthLayout>
+              </Route>
+
             </Switch>
 
           </Router>
