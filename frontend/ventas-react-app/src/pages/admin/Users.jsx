@@ -113,8 +113,8 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
         <table id="datatablesSimple" className="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
+                                <th>Nombres</th>
+                                <th>Usuario</th>
                                 <th>Correo</th>
                                 <th>Rol</th>
                                 <th>Acción</th>
@@ -124,10 +124,10 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
                         {listaUsuarios.map((item,index) => {
                             return (
                                 <tr key={nanoid()}>
-                                    <td>{item.firstName} </td>
-                                    <td>{item.lastName}</td>
+                                    <td>{item.name} </td>
+                                    <td>{item.nickname}</td>
                                     <td>{item.email}</td>
-                                    <td>{item.roleName}</td>
+                                    <td>{item.rol}</td>
                                     <td>
                                         <div className="d-flex justify-content-around">
                                             <NavLink className="link-primary" to={`/admin/user/edit/${item._id}`}>

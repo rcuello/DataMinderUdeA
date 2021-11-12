@@ -40,12 +40,13 @@ function App(){
 
   //console.log('response con datos del usuario', user);
   //setUserData(user);
-
+  const redirectUri = window.location.origin+"/admin";
   return (
     <Auth0Provider
     domain="misiontic-dataminder.us.auth0.com"
     clientId="6aqF3InHWeNUJloZMUxUh6jUdgasqTIx"
-    redirectUri={window.location.origin}>
+    redirectUri={redirectUri}
+    audience="api-autenticacion-dataminder-mintic">
       <div className="App">
         <UserContext.Provider value={{ userData, setUserData }}>
           <Router>

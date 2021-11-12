@@ -24,7 +24,10 @@ export const getUsuarios = async (successCallback, errorCallback) => {
     const url = `${BASE_URL}/usuarios`;
     const options = {
       method: 'GET',
-      url: url
+      url: url,
+      headers: {
+        Authorization: getToken(), // 3. enviarle el token a backend
+      },
     };
    
     await axios.request(options).then(successCallback).catch(errorCallback);
@@ -35,7 +38,8 @@ export const getUsuarios = async (successCallback, errorCallback) => {
       method: 'POST',
       url: `${BASE_URL}/usuarios`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         },
       data,
     };
@@ -47,7 +51,8 @@ export const getUsuarios = async (successCallback, errorCallback) => {
       method: 'DELETE',
       url: `${BASE_URL}/usuarios/${id}`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         }
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
@@ -58,7 +63,8 @@ export const getUsuarios = async (successCallback, errorCallback) => {
       method: 'GET',
       url: `${BASE_URL}/usuarios/${id}`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         },
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
@@ -69,7 +75,8 @@ export const getUsuarios = async (successCallback, errorCallback) => {
       method: 'PATCH',
       url: `${BASE_URL}/usuarios/${id}`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         },
         data
     };
@@ -83,7 +90,10 @@ export const getProductos = async (successCallback, errorCallback) => {
     const url = `${BASE_URL}/productos`;
     const options = {
       method: 'GET',
-      url: url
+      url: url,
+      headers: {
+        Authorization: getToken(), // 3. enviarle el token a backend
+      },
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
   };
@@ -93,7 +103,8 @@ export const createProducto = async (data, successCallback, errorCallback) => {
       method: 'POST',
       url: `${BASE_URL}/productos`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         },
       data,
     };
@@ -105,7 +116,8 @@ export const deleteProducto = async (id, successCallback, errorCallback) => {
       method: 'DELETE',
       url: `${BASE_URL}/productos/${id}`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         }
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
@@ -116,7 +128,8 @@ export const findProductoById = async (id, successCallback, errorCallback) => {
       method: 'GET',
       url: `${BASE_URL}/productos/${id}`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         },
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
@@ -127,7 +140,8 @@ export const findProductoById = async (id, successCallback, errorCallback) => {
       method: 'PATCH',
       url: `${BASE_URL}/productos/${id}`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         },
         data
     };
@@ -140,7 +154,11 @@ export const getVentas = async (successCallback, errorCallback) => {
     const url = `${BASE_URL}/ventas`;
     const options = {
       method: 'GET',
-      url: url
+      url: url,
+      headers: { 
+        'Content-Type': 'application/json',
+        Authorization: getToken()
+      }
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
   };
@@ -150,7 +168,8 @@ export const getVentas = async (successCallback, errorCallback) => {
       method: 'POST',
       url: `${BASE_URL}/ventas`,
       headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: getToken()
         },
       data,
     };

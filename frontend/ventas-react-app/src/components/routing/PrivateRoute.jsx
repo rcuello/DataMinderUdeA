@@ -14,6 +14,38 @@ const PrivateRoute = ({roleList,children})=> {
     const userRole  ="admin";
     console.log(user,isAuthenticated,isLoading);
 
+    useEffect(() => {
+        // 1. pedir token a auth0
+        const fetchAuth0Token = async ()=>{
+            const accessToken = await getAccessTokenSilently({
+                audience:`api-autenticacion-dataminder-mintic`
+            });
+            // 2. recibir token de auth0
+            localStorage.setItem('token', accessToken);
+
+
+            console.log(accessToken);
+
+            // 3. enviarle el token a el backend
+            await obtenerDatosUsuario(
+                (response) => {
+                console.log('response con datos del usuario', response);
+                //setUserData(response.data);
+                //setLoadingUserInformation(false);
+                },
+                (err) => {
+                console.log('err', err);
+                //setLoadingUserInformation(false);
+                //logout({ returnTo: 'http://localhost:3000/admin' });
+                }
+            );
+        }
+
+        if(isAuthenticated){
+            fetchAuth0Token();
+        }
+        
+    }, [isAuthenticated, getAccessTokenSilently])
     
     /*if(roleList.includes(userRole)){
         return children;
