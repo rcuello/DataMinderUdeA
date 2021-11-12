@@ -52,12 +52,16 @@ const updateUsuario = async (id,edicion, callback) => {
   // 6.1. obtener los datos del usuario desde el token
   const token = req.headers.authorization.split('Bearer ')[1];
   const user = jwt_decode(token)['http://localhost/userData'];
-  console.log(user);
+  
+  //console.log(token);
+  //console.log(user.email);
 
   // 6.2. con el correo del usuario o con el id de auth0, verificar si el usuario ya esta en la bd o no
   const baseDeDatos = getDB();
   await baseDeDatos.collection(COLLECTION_NAME).findOne({ email: user.email }, async (err, response) => {
-    console.log('response consulta bd', response);
+    
+    //console.log('response consulta bd', response);
+    
     if (response) {
       // 7.1. si el usuario ya esta en la BD, devuelve la info del usuario
       callback(err, response);
@@ -65,7 +69,7 @@ const updateUsuario = async (id,edicion, callback) => {
       // 7.2. si el usuario no esta en la bd, lo crea y devuelve la info
       user.auth0ID = user._id;
       delete user._id;
-      user.rol = 'sin rol';
+      user.rol = 'Vendedor';
       user.estado = 'pendiente';
       await createUsuario(user, (err, respuesta) => callback(err, user));
     }

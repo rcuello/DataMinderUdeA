@@ -9,6 +9,13 @@ const genercCallback = (res) => (err, result) => {
       res.json(result);
     }
   };
+  rutasUsuario.route('/usuarios/self').get((req, res) => {
+    
+    console.log('alguien hizo get en la ruta /self');
+    consultarOCrearUsuario(req, genercCallback(res));
+    //res.send("usuarios");
+
+  });
 
   rutasUsuario.route('/usuarios').get((req, res) => {
     
@@ -24,6 +31,7 @@ const genercCallback = (res) => (err, result) => {
     findAllUsuarios(genercCallback(res));
 
   });
+
 
   rutasUsuario.route('/usuarios').post((req, res) => {
     const json = req.body;
@@ -44,11 +52,6 @@ const genercCallback = (res) => (err, result) => {
     deleteUsuario(req.params.id, genercCallback(res));
   });
 
-  rutasUsuario.route('/usuarios/self').get((req, res) => {
-    
-    console.log('alguien hizo get en la ruta /self');
-    consultarOCrearUsuario(req, genercCallback(res));
-
-  });
+  
 
   export default rutasUsuario;
