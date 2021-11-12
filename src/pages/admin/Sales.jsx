@@ -78,6 +78,8 @@ const TablaVentas = ({listaVentas})=>{
     }
 
     return (
+        <>
+                <input type="text" placeholder="Buscar"/>
                 <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -101,6 +103,7 @@ const TablaVentas = ({listaVentas})=>{
                             
                         </tbody>
                     </table>
+        </>
     )
 }
 
