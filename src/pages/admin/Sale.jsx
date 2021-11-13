@@ -5,17 +5,41 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button ,Modal } from 'react-bootstrap';
 import {nanoid} from "nanoid";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getProductos,createVenta } from '../../utils/api';
+import { getProductos,createVenta, findVentaById } from '../../utils/api';
 
 
 const Sale = () => {
+    const { id } = useParams();
 
+    const [ventaEditable,setVentaEditable] = useState({});
+    const [editMode, setEditMode] = useState(id!==undefined);
     const [show, setShow] = useState(false);
     const [productos, setProductos] = useState([]);
     const [loading, setLoading] = useState(false);
     const { user,logout,isAuthenticated,isLoading } = useAuth0();
     const [productosBackEnd, setProductosBackEnd] = useState([]);
     const [ejecutarConsulta, setEjecutarConsulta] = useState(true);
+
+    useEffect(()=>{
+        
+        const fetchVenta = async (idVenta)=>{
+            
+            await findVentaById(idVenta,
+                (response)=>{
+                    setVentaEditable(response.data);
+    
+                },(error)=>{
+                    console.error('Salio un error:', error);
+                    toast.error("Ha ocurrido un error:"+error);
+                    //setLoading(false);
+                });
+           }
+
+        if(editMode){
+            fetchVenta(id);
+        }
+
+    },[]);
 
     useEffect(()=>{
         
@@ -146,7 +170,9 @@ const Sale = () => {
                                 <div className="col-md-6">
                                     <div className="form-floating mb-3 mb-md-0">
                                         <input className="form-control" 
-                                        name="codigoVenta" 
+                                        name="codigoVenta"
+                                        disabled={editMode}  
+                                        defaultValue={editMode ? ventaEditable.saleId : ""}
                                         required
                                         id="codigoVenta" type="text" placeholder="Codigo de la venta" />
                                         <label htmlFor="codigoVenta">Codigo de la venta</label>
@@ -156,6 +182,7 @@ const Sale = () => {
                                     <div className="form-floating">
                                         <input className="form-control"
                                         name="comprador"
+                                        defaultValue={editMode ? ventaEditable.buyer : ""}
                                         required
                                         id="comprador" type="text" placeholder="Comprador" />
                                         <label htmlFor="comprador">Comprador</label>
