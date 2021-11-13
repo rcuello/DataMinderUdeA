@@ -138,6 +138,18 @@ export const findProductoById = async (id, successCallback, errorCallback) => {
     await axios.request(options).then(successCallback).catch(errorCallback);
   };
 
+  export const findProductoByCodigo = async (id, successCallback, errorCallback) => {
+    const options = {
+      method: 'GET',
+      url: `${BASE_URL}/productosByCodigo/${id}`,
+      headers: { 
+          'Content-Type': 'application/json',
+          Authorization: getToken()
+        },
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
   export const updateProducto = async (id,data, successCallback, errorCallback) => {
     const options = {
       method: 'PATCH',

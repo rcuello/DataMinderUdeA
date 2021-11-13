@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button ,Modal } from 'react-bootstrap';
 import {nanoid} from "nanoid";
 
-import { getProductos,deleteProducto } from '../../utils/api';
+import { getProductos,deleteProducto, findProductoByCodigo } from '../../utils/api';
 
 const Products = () => {
     //States   
@@ -78,9 +78,9 @@ const Products = () => {
                 <div className="card-body">
                     {
                     (Array.isArray(productos) && productos.length) ?
-                        <TablaProductos listaProductos={productos} onProductoDeleted={onProductoDeletedHandler}/>
+                        <TablaProductos listaProductos={productos} onProductoDeleted={onProductoDeletedHandler} setProductos={setProductos} setEjecutarConsulta={setEjecutarConsulta}/>
                     :
-                        <EmptyTable />
+                        <EmptyTable listaProductos={productos} onProductoDeleted={onProductoDeletedHandler} setProductos={setProductos} setEjecutarConsulta={setEjecutarConsulta}/>
                 }
                 </div>
             </div>
@@ -89,8 +89,8 @@ const Products = () => {
     )
 }
 
-const TablaProductos = ({listaProductos , onProductoDeleted})=>{
-
+const TablaProductos = ({listaProductos , onProductoDeleted,setProductos,setEjecutarConsulta})=>{
+    const [filtro, setFiltro] = useState("");
     //States
     const [show, setShow] = useState(false);
     const [deleteEntity, setDeleteEntity] = useState({});
@@ -124,9 +124,39 @@ const TablaProductos = ({listaProductos , onProductoDeleted})=>{
         
     }
 
+    const onBuscarClick = async (e)=>{
+        console.log(filtro.length);
+
+        if(filtro.length>0){
+            await findProductoByCodigo(filtro,(response)=>{
+                //console.log(response);
+                if(response.data!=null){
+                    let items=[];
+                    items.push(response.data);
+                    setProductos([...items]);
+                }else{
+                    setProductos([]);
+                }
+    
+            },(error)=>{
+                    console.log(error);
+                    toast.error('Error: '+error);
+            });
+        }else{
+            setEjecutarConsulta(true);
+        }
+        
+    }
+
    
 
     return (
+        <>
+                <input type="text" placeholder="Buscar" onChange={(e)=> setFiltro(e.target.value)}/>
+                <Button variant="primary" type="button" onClick={(e)=>onBuscarClick(e)}>
+                                        Buscar
+                </Button>
+
                 <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -184,11 +214,74 @@ const TablaProductos = ({listaProductos , onProductoDeleted})=>{
                         </Modal>
                         
                     </table>
+        </>
     )
 }
 
-const EmptyTable = () =>{
+const EmptyTable = ({listaProductos , onProductoDeleted,setProductos,setEjecutarConsulta}) =>{
+    const [filtro, setFiltro] = useState("");
+    //States
+    const [show, setShow] = useState(false);
+    const [deleteEntity, setDeleteEntity] = useState({});
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    //Functions
+    const confirmDelete = (item)=>{
+        //console.log(item);
+        
+        setDeleteEntity(item);
+        setShow(true);
+    }
+
+    const handleSaveChanges =async ()=>{
+        
+        await deleteProducto(deleteEntity.item._id,(response)=>{
+            //TODO : quitar modal
+            setShow(false);
+            
+            onProductoDeleted();
+
+            toast.success('Producto eliminado con éxito');
+
+        },(error)=>{
+                //console.log(error);
+                toast.error(''+ error);
+        })
+
+        
+    }
+
+    const onBuscarClick = async (e)=>{
+        console.log(filtro.length);
+
+        if(filtro.length>0){
+            await findProductoByCodigo(filtro,(response)=>{
+                //console.log(response);
+                if(response.data!=null){
+                    let items=[];
+                    items.push(response.data);
+                    setProductos([...items]);
+                }else{
+                    setProductos([]);
+                }
+    
+            },(error)=>{
+                    console.log(error);
+                    toast.error('Error: '+error);
+            });
+        }else{
+            setEjecutarConsulta(true);
+        }
+        
+    }
     return (
+        <>
+        <input type="text" placeholder="Buscar" onChange={(e)=> setFiltro(e.target.value)}/>
+                <Button variant="primary" type="button" onClick={(e)=>onBuscarClick(e)}>
+                                        Buscar
+                </Button>
         <table id="dtDataSet" className="table table-striped table-bordered">
         <thead>
             <tr>
@@ -204,6 +297,7 @@ const EmptyTable = () =>{
             </tr>
         </tbody>
     </table>
+    </>
     )
 }
 
