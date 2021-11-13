@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
+import PrivateComponent from "../routing/PrivateComponent";
 
 const SideBar = ()=>{
     const { user,logout,isAuthenticated,isLoading } = useAuth0();
@@ -14,8 +15,12 @@ const SideBar = ()=>{
         <div className="sb-sidenav-menu">
             <div className="nav">
                 <div className="sb-sidenav-menu-heading">Panel admin.</div>
+                
                 <SideBarPage icono="fas fa-tachometer-alt"  nombre="Inicio" ruta="/admin"/>
-                <SideBarPage icono="fas fa-columns"         nombre="Usuarios" ruta="/admin/users"/>
+                
+                <PrivateComponent roleList={["admin"]}>
+                    <SideBarPage icono="fas fa-columns"         nombre="Usuarios" ruta="/admin/users"/>
+                </PrivateComponent>
                 <SideBarPage icono="fas fa-columns"         nombre="Productos" ruta="/admin/products"/>
                 <SideBarPage icono="fas fa-columns"         nombre="Ventas" ruta="/admin/sales"/>
             </div>
