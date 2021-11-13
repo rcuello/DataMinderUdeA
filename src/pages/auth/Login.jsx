@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 function Login() {
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
-    
+    //console.log(process.env.REACT_APP_API_URL)
     const onLoginClick =()=>{
         console.log("email: ",email);
         console.log("password: ",password);

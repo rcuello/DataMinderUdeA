@@ -2,6 +2,8 @@ import axios from "axios";
 
 //const BASE_URL      = "http://localhost:3011";
 const BASE_URL      = "https://cryptic-coast-02683.herokuapp.com";
+
+
 //const PATH_USUARIOS = process.env.REACT_APP_PATH_USUARIOS;
 
 const getToken = () => {
@@ -173,6 +175,30 @@ export const getVentas = async (successCallback, errorCallback) => {
           Authorization: getToken()
         },
       data,
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+  export const findVentaById = async (id, successCallback, errorCallback) => {
+    const options = {
+      method: 'GET',
+      url: `${BASE_URL}/ventas/${id}`,
+      headers: { 
+          'Content-Type': 'application/json',
+          Authorization: getToken()
+        },
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };
+
+  export const findVentaBySaleId = async (id, successCallback, errorCallback) => {
+    const options = {
+      method: 'GET',
+      url: `${BASE_URL}/ventasBySaleId/${id}`,
+      headers: { 
+          'Content-Type': 'application/json',
+          Authorization: getToken()
+        },
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
   };

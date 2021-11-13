@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { getVentas } from '../../utils/api';
+import { getVentas,findVentaBySaleId } from '../../utils/api';
 import { Button ,Modal } from 'react-bootstrap';
 import {nanoid} from "nanoid";
 
@@ -62,14 +62,15 @@ const Sales = () => {
                         </div>
                     </div>
                 <div className="card-body">
-                    <TablaVentas listaVentas={ventas}/>
+                    <TablaVentas listaVentas={ventas} setVentas = {setVentas} setEjecutarConsulta={setEjecutarConsulta}/>
                 </div>
             </div>
         </div>
     )
 }
 
-const TablaVentas = ({listaVentas})=>{
+const TablaVentas = ({listaVentas,setVentas,setEjecutarConsulta})=>{
+    const [filtro, setFiltro] = useState([]);
 
     const formatCurrency = (amount)=>{
         const options1 = { style: 'currency', currency: 'COP' };
@@ -77,9 +78,38 @@ const TablaVentas = ({listaVentas})=>{
         return numberFormat1.format(amount);
     }
 
+    const onBuscarClick = async (e)=>{
+        console.log(filtro.length);
+
+        if(filtro.length>0){
+            await findVentaBySaleId(filtro,(response)=>{
+                //console.log(response);
+                if(response.data!=null){
+                    let items=[];
+                    items.push(response.data);
+                    setVentas([...items]);
+                }else{
+                    setVentas([]);
+                }
+    
+            },(error)=>{
+                    console.log(error);
+                    toast.error('Error: '+error);
+            });
+        }else{
+            setEjecutarConsulta(true);
+        }
+        
+    }
+
     return (
         <>
-                <input type="text" placeholder="Buscar"/>
+                
+                <input type="text" placeholder="Buscar" onChange={(e)=> setFiltro(e.target.value)}/>
+                <Button variant="primary" type="button" onClick={(e)=>onBuscarClick(e)}>
+                                        Buscar
+                </Button>
+
                 <table id="dtDataSet" className="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -102,7 +132,7 @@ const TablaVentas = ({listaVentas})=>{
                         })}
                             
                         </tbody>
-                    </table>
+                </table>
         </>
     )
 }
