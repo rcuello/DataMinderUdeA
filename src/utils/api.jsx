@@ -202,3 +202,15 @@ export const getVentas = async (successCallback, errorCallback) => {
     };
     await axios.request(options).then(successCallback).catch(errorCallback);
   };
+
+  export const deleteVenta = async (id, successCallback, errorCallback) => {
+    const options = {
+      method: 'DELETE',
+      url: `${BASE_URL}/ventas/${id}`,
+      headers: { 
+          'Content-Type': 'application/json',
+          Authorization: getToken()
+        }
+    };
+    await axios.request(options).then(successCallback).catch(errorCallback);
+  };

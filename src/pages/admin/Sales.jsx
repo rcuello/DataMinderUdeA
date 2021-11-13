@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { getVentas,findVentaBySaleId } from '../../utils/api';
+import { getVentas,findVentaBySaleId,deleteVenta } from '../../utils/api';
 import { Button ,Modal } from 'react-bootstrap';
 import {nanoid} from "nanoid";
 
@@ -71,6 +71,11 @@ const Sales = () => {
 
 const TablaVentas = ({listaVentas,setVentas,setEjecutarConsulta})=>{
     const [filtro, setFiltro] = useState([]);
+    const [show, setShow] = useState(false);
+    const [deleteEntity, setDeleteEntity] = useState({});
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const formatCurrency = (amount)=>{
         const options1 = { style: 'currency', currency: 'COP' };
@@ -102,6 +107,29 @@ const TablaVentas = ({listaVentas,setVentas,setEjecutarConsulta})=>{
         
     }
 
+    const confirmDelete = (item)=>{
+        setDeleteEntity(item);
+        setShow(true);
+    }
+
+    const handleSaveChanges =async ()=>{
+        
+        await deleteVenta(deleteEntity.item._id,(response)=>{
+            //TODO : quitar modal
+            setShow(false);
+            
+            setEjecutarConsulta(true);
+
+            toast.success('Venta eliminada con éxito');
+
+        },(error)=>{
+                //console.log(error);
+                toast.error(''+ error);
+        })
+
+        
+    }
+
     return (
         <>
                 
@@ -117,6 +145,7 @@ const TablaVentas = ({listaVentas,setVentas,setEjecutarConsulta})=>{
                                 <th>Vendedor</th>
                                 <th>Comprador</th>
                                 <th>Total venta</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,11 +156,40 @@ const TablaVentas = ({listaVentas,setVentas,setEjecutarConsulta})=>{
                                     <td>{item.currentUser}</td>
                                     <td>{item.buyer}</td>
                                     <td>{formatCurrency(item.total)}</td>
+                                    <td>
+                                        <div className="d-flex justify-content-around">
+                                            <NavLink className="link-primary" to={`/admin/sales/edit/${item._id}`}>
+                                                <i className="fas fa-pencil-alt"></i>
+                                            </NavLink>
+                                            
+                                            <span>&nbsp;</span>
+                                            
+                                            <NavLink className="link-danger" to="#" onClick={(e)=> confirmDelete({item})}>
+                                                <i className="fas fa-trash"></i>
+                                            </NavLink>
+                                        </div>
+                                    </td>
                                 </tr>
                             ) 
                         })}
                             
                         </tbody>
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Modal heading</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                ¿Está seguro de querer eliminar la venta?
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Cerrar
+                                </Button>
+                                <Button variant="primary" onClick={handleSaveChanges}>
+                                    Aplicar cambios
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
                 </table>
         </>
     )
