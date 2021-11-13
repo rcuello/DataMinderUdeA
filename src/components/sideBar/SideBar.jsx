@@ -21,8 +21,11 @@ const SideBar = ()=>{
                 <PrivateComponent roleList={["admin"]}>
                     <SideBarPage icono="fas fa-columns"         nombre="Usuarios" ruta="/admin/users"/>
                 </PrivateComponent>
-                <SideBarPage icono="fas fa-columns"         nombre="Productos" ruta="/admin/products"/>
-                <SideBarPage icono="fas fa-columns"         nombre="Ventas" ruta="/admin/sales"/>
+                <PrivateComponent roleList={["admin","vendedor"]}>
+                    <SideBarPage icono="fas fa-columns"         nombre="Productos" ruta="/admin/products"/>
+                    <SideBarPage icono="fas fa-columns"         nombre="Ventas" ruta="/admin/sales"/>
+                </PrivateComponent>
+                
             </div>
         </div>
         

@@ -133,6 +133,7 @@ const User = () => {
                                 <select className="form-select" value={usuarioEditable.rol} name="roleName" onChange={(e)=> onRoleChanged(e)} >
                                     <option value="admin">Administrador</option>
                                     <option value="vendedor">Vendedor</option>
+                                    <option value="inactivo">Inactivo</option>
                                 </select>
                             </div>
                             

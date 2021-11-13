@@ -110,7 +110,7 @@ function App(){
                     </Route>
                     
                     <Route path="/admin" exact>
-                      <PrivateRoute roleList={["admin","vendedor"]}>
+                      <PrivateRoute roleList={["admin","vendedor","inactivo"]}>
                         <Dashboard/>
                       </PrivateRoute>
                     </Route>
