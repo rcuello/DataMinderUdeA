@@ -36,11 +36,16 @@ const PrivateLayout = ({children}) => {
                   //console.log('response con datos del usuario', response);
                   setUserData(response.data);
                   setLoadingUserInformation(false);
+
+                  /*if(response.data.estado==="rechazado"){
+                    logout({ returnTo: 'http://localhost:3000/login' });
+                  }*/
                 },
                 (err) => {
                   console.log('err', err);
                   setLoadingUserInformation(false);
-                //logout({ returnTo: 'http://localhost:3000/admin' });
+                  console.log("redirect");
+                  logout(/*{ returnTo: 'http://localhost:3000/login' }*/);
                 }
             );
         }
