@@ -130,6 +130,7 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
                                 <th>Usuario</th>
                                 <th>Correo</th>
                                 <th>Rol</th>
+                                <th>Estado</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
@@ -141,6 +142,7 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
                                     <td>{item.nickname}</td>
                                     <td>{item.email}</td>
                                     <td>{item.rol}</td>
+                                    <td>{item.estado}</td>
                                     <td>
                                             <div className="d-flex justify-content-around" >
                                                 <NavLink className="link-primary" to={`/admin/user/edit/${item._id}`}>

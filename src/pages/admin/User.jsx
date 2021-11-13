@@ -75,6 +75,12 @@ const User = () => {
         setUsuarioEditable(usuarioEditable);
     }
 
+    const onEstadoChanged = (e)=>{
+        console.log(e.target.value);
+        usuarioEditable.estado=e.target.value;
+        setUsuarioEditable(usuarioEditable);
+    }
+
     return (
         <div className="container-fluid px-4">
             <h1 className="mt-4">Usuario</h1>
@@ -129,12 +135,40 @@ const User = () => {
                                     <label htmlFor="inputEmail">Dirección de correo electrónico</label>
                                 </div>
                             </div>
+
                             <div className="col-md-6">
-                                <select className="form-select" value={usuarioEditable.rol} name="roleName" onChange={(e)=> onRoleChanged(e)} >
+                                <div className="form-floating mb-3 mb-md-0">
+                                    <input className="form-control" 
+                                    name="nickname"
+                                    readOnly
+                                    defaultValue={editMode ? usuarioEditable.nickname : ""}
+                                    id="inputNickname" placeholder="nombre de usuario" />
+                                    <label htmlFor="inputNickname">Nombre de usuario</label>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div className="row mb-3">
+                            
+                            <div className="col-md-6">
+                                <label className="form-check-label" html="roleName">Roles</label>
+                                <select className="form-select" name="roleName" value={usuarioEditable.rol} onChange={(e)=> onRoleChanged(e)} >
                                     <option value="admin">Administrador</option>
                                     <option value="vendedor">Vendedor</option>
                                     <option value="inactivo">Inactivo</option>
                                 </select>
+                                
+                            </div>
+
+                            <div className="col-md-6">
+                                <label className="form-check-label" html="estados">Estado</label>
+                                <select className="form-select" name="estados" value={usuarioEditable.estado} onChange={(e)=> onEstadoChanged(e)}>
+                                    <option value="autorizado">Autorizado</option>
+                                    <option value="pendiente">Pendiente</option>
+                                    <option value="rechazado">Rechazado</option>
+                                </select>
+                                
                             </div>
                             
                         </div>
