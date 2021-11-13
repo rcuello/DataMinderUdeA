@@ -60,9 +60,7 @@ const Users = () => {
                                 <i className="fas fa-table me-1"></i>
                                 Administración de usuarios
                             </div>
-                            <NavLink className="link-dark" to="/admin/user/new">
-                                    <i className="far fa-plus-square"></i>
-                            </NavLink>
+                            
                         </div>
                     </div>
                 <div className="card-body">
@@ -76,6 +74,7 @@ const Users = () => {
 
 const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
     //States
+    const [filtro, setFiltro] = useState("");
     const [show, setShow] = useState(false);
     const [deleteEntity, setDeleteEntity] = useState({});
 
@@ -107,9 +106,23 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
         
     }
 
+    const onBuscarClick = async (e)=>{
+        
+
+        if(filtro.length>0){
+            
+        }else{
+            //setEjecutarConsulta(true);
+        }
+        
+    }
+
     return (
         <>
-        <input type="text" placeholder="Buscar"/>
+        <input type="text" placeholder="Buscar" onChange={(e)=> setFiltro(e.target.value)}/>
+                <Button variant="primary" type="button" onClick={(e)=>onBuscarClick(e)}>
+                                        Buscar
+                </Button>
         <table id="datatablesSimple" className="table table-striped table-bordered">
                         <thead>
                             <tr>
@@ -129,17 +142,20 @@ const TablaUsuarios = ({listaUsuarios,onUsuarioDeleted})=>{
                                     <td>{item.email}</td>
                                     <td>{item.rol}</td>
                                     <td>
-                                        <div className="d-flex justify-content-around">
-                                            <NavLink className="link-primary" to={`/admin/user/edit/${item._id}`}>
-                                                <i className="fas fa-pencil-alt"></i>
-                                            </NavLink>
-                                            
-                                            <span>&nbsp;</span>
-                                            
-                                            <NavLink className="link-danger" to="#" onClick={(e)=> confirmDelete({item})}>
-                                                <i className="fas fa-trash"></i>
-                                            </NavLink>
-                                        </div>
+                                            <div className="d-flex justify-content-around" >
+                                                <NavLink className="link-primary" to={`/admin/user/edit/${item._id}`}>
+                                                    <i className="fas fa-pencil-alt"></i>
+                                                </NavLink>
+                                                
+                                                <span>&nbsp;</span>
+                                                
+                                                <div style={item.email=="ronaldcuello@gmail.com" ? {display: 'none'} : {}}>
+                                                    <NavLink className="link-danger" to="#" onClick={(e)=> confirmDelete({item})}>
+                                                        <i className="fas fa-trash"></i>
+                                                    </NavLink>
+                                                </div>
+                                            </div>
+                                        
                                     </td>
                                 </tr>
                             ) 

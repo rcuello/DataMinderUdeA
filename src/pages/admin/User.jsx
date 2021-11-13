@@ -13,6 +13,7 @@ const User = () => {
     const [editMode, setEditMode] = useState(id!==undefined);
     const [usuarioEditable,setUsuarioEditable] = useState({});
     const [show, setShow] = useState(false);
+    const [currentRol,setCurrentRol] = useState("");
 
     const formulario = useRef(null);
 
@@ -45,14 +46,12 @@ const User = () => {
     }
 
     const handleSaveChanges =async ()=>{
-        //formulario.current => html de todo el formulario
-        const fd = new FormData(formulario.current);
+        
+        const nuevoUsuario = {...usuarioEditable};
 
-        const nuevoUsuario = {};
+        delete nuevoUsuario._id;
 
-        fd.forEach((value, key) => {
-            nuevoUsuario[key] = value;
-        });
+        //console.log(nuevoUsuario);
 
         if(editMode){
             //Patch
@@ -65,28 +64,15 @@ const User = () => {
                     console.log(error);
                     toast.error('Usuario almacenado con error: '+error);
             });
-        }else{
-            //Crear Producto
-            await createUsuario(nuevoUsuario,(response)=>{
-                //TODO : quitar modal
-                setShow(false);
-                toast.success('Usuario almacenado con éxito');
-
-            },(error)=>{
-                    console.log(error);
-                    toast.error('Usuario almacenado con error: '+error);
-            });
         }
-        
-        //console.log(editMode);
-        //console.log(nuevoUsuario);
-
-        
-
         
     }
 
-
+    const onRoleChanged = (e)=>{
+        console.log(e.target.value);
+        usuarioEditable.rol=e.target.value;
+        setUsuarioEditable(usuarioEditable);
+    }
 
     return (
         <div className="container-fluid px-4">
@@ -114,7 +100,8 @@ const User = () => {
                                 <div className="form-floating mb-3 mb-md-0">
                                     <input className="form-control" 
                                     name="firstName" 
-                                    defaultValue={editMode ? usuarioEditable.firstName : ""}
+                                    readOnly
+                                    defaultValue={editMode ? usuarioEditable.given_name : ""}
                                     id="inputFirstName" type="text" placeholder="Ingrese su primer nombre" />
                                     <label htmlFor="inputFirstName">Primer nombre</label>
                                 </div>
@@ -123,7 +110,8 @@ const User = () => {
                                 <div className="form-floating">
                                     <input className="form-control" 
                                     name="lastName"
-                                    defaultValue={editMode ? usuarioEditable.lastName : ""}
+                                    readOnly
+                                    defaultValue={editMode ? usuarioEditable.family_name : ""}
                                     id="inputLastName" type="text" placeholder="Ingrese su apellido" />
                                     <label htmlFor="inputLastName">Apellido</label>
                                 </div>
@@ -134,40 +122,21 @@ const User = () => {
                                 <div className="form-floating mb-3 mb-md-0">
                                     <input className="form-control" 
                                     name="email"
+                                    readOnly
                                     defaultValue={editMode ? usuarioEditable.email : ""}
                                     id="inputEmail" type="email" placeholder="name@example.com" />
                                     <label htmlFor="inputEmail">Dirección de correo electrónico</label>
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <select className="form-select" required  
-                                  name="roleName">
-                                    <option  disabled value={0}>Seleccionar Rol</option>
+                                <select className="form-select" value={usuarioEditable.rol} name="roleName" onChange={(e)=> onRoleChanged(e)} >
                                     <option value="admin">Administrador</option>
                                     <option value="vendedor">Vendedor</option>
                                 </select>
                             </div>
                             
                         </div>
-                        <div className="row mb-3">
-                            <div className="col-md-6">
-                                <div className="form-floating mb-3 mb-md-0">
-                                    <input 
-                                    defaultValue={editMode ? usuarioEditable.password : ""}
-                                    name="password" 
-                                    className="form-control" id="inputPassword" type="password" placeholder="Crea una contraseña" />
-                                    <label htmlFor="inputPassword">Contraseña</label>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="form-floating mb-3 mb-md-0">
-                                    <input 
-                                    defaultValue={editMode ? usuarioEditable.password : ""}
-                                    name="password2" className="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirmar Contraseña" />
-                                    <label htmlFor="inputPasswordConfirm">Confirmar Contraseña</label>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div className="row">
                             <div className="d-flex justify-content-end">
                                 <NavLink  className="btn btn-secondary" to="/admin/users">

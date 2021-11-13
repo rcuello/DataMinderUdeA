@@ -70,7 +70,7 @@ const Sales = () => {
 }
 
 const TablaVentas = ({listaVentas,setVentas,setEjecutarConsulta})=>{
-    const [filtro, setFiltro] = useState([]);
+    const [filtro, setFiltro] = useState("");
     const [show, setShow] = useState(false);
     const [deleteEntity, setDeleteEntity] = useState({});
 
