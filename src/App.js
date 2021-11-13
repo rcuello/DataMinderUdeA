@@ -30,8 +30,8 @@ import Product from "./pages/admin/Product";
 import Sale from "./pages/admin/Sale";
 
 
-const redirectUri = window.location.origin+"/admin";
-  //const redirectUri="https://arcane-tundra-59317.herokuapp.com/admin";
+//const redirectUri = window.location.origin+"/admin";
+const redirectUri="https://arcane-tundra-59317.herokuapp.com/admin";
   //const redirectUri=process.env.REACT_APP_AUTH_REDIRECT_URI;
 
 
@@ -43,7 +43,7 @@ function App(){
   //console.log('response con datos del usuario', user);
   //setUserData(user);
   //console.log(redirectUri);
-  
+
   return (
     <Auth0Provider
     domain="misiontic-dataminder.us.auth0.com"
